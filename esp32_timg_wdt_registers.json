@@ -1,0 +1,1001 @@
+{
+  "peripheral": "Timer Group (TIMG) incl. Main System Watchdog (MWDT)",
+  "base_address": "TIMG0: 0x3FF5F000, TIMG1: 0x3FF60000",
+  "source_page": "Chapter 10 Timer Group (TIMG), Section 10.3 Register Summary / 10.4 Registers, ESP32 TRM v5.7",
+  "registers": [
+    {
+      "name": "TIMGn_T0CONFIG_REG",
+      "description": "Timer 0 configuration register",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F000",
+        "TIMG1": "0x3FF60000"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 1 1 0x00001 0 0 0 0 0 0 0 0 0 0 0 0 0",
+      "fields": [
+        {
+          "name": "TIMGn_Tx_EN",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When set, the timer x time-base counter is enabled. (R/W)"
+        },
+        {
+          "name": "TIMGn_Tx_INCREASE",
+          "bits": "30",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When set, the timer x time-base counter will increment every clock tick. When cleared, the timer x time-base counter will decrement. (R/W)"
+        },
+        {
+          "name": "TIMGn_Tx_AUTORELOAD",
+          "bits": "29",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When set, timer x auto-reload at alarm is enabled. (R/W)"
+        },
+        {
+          "name": "TIMGn_Tx_DIVIDER",
+          "bits": "28:13",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Timer x clock (Tx_clk) prescale value. (R/W)"
+        },
+        {
+          "name": "TIMGn_Tx_EDGE_INT_EN",
+          "bits": "12",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When set, an alarm will generate an edge type interrupt. (R/W)"
+        },
+        {
+          "name": "TIMGn_Tx_LEVEL_INT_EN",
+          "bits": "11",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When set, an alarm will generate a level type interrupt. (R/W)"
+        },
+        {
+          "name": "TIMGn_Tx_ALARM_EN",
+          "bits": "10",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When set, the alarm is enabled. This bit is automatically cleared once an alarm occurs. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "9:0"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "TIMGn_T0LO_REG",
+      "description": "Timer 0 current value, low 32 bits",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F004",
+        "TIMG1": "0x3FF60004"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x000000000",
+      "fields": [
+        {
+          "name": "TIMGn_TxLO_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "RO",
+          "description": "After writing to TIMGn_TxUPDATE_REG, the low 32 bits of the time-base counter of timer x can be read here. (RO)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "TIMGn_T0HI_REG",
+      "description": "Timer 0 current value, high 32 bits",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F008",
+        "TIMG1": "0x3FF60008"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x000000000",
+      "fields": [
+        {
+          "name": "TIMGn_TxHI_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "RO",
+          "description": "After writing to TIMGn_TxUPDATE_REG, the high 32 bits of the time-base counter of timer x can be read here. (RO) Espressif Systems                                               227                                         ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 10 Timer Group (TIMG)                                                                    GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "TIMGn_T0UPDATE_REG",
+      "description": "",
+      "width": 32,
+      "access": "WO",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F00C",
+        "TIMG1": "0x3FF6000C"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x000000000",
+      "fields": [
+        {
+          "name": "TIMGn_TxUPDATE_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "WO",
+          "description": "Write any value to trigger a timer x time-base counter value update (timer x current value will be stored in registers above). (WO)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "TIMGn_T0ALARMLO_REG",
+      "description": "Timer 0 alarm value, low 32 bits",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F010",
+        "TIMG1": "0x3FF60010"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x000000000",
+      "fields": [
+        {
+          "name": "TIMGn_TxALARMLO_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Timer x alarm trigger time-base counter value, low 32 bits. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "TIMGn_T0ALARMHI_REG",
+      "description": "Timer 0 alarm value, high bits",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F014",
+        "TIMG1": "0x3FF60014"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x000000000",
+      "fields": [
+        {
+          "name": "TIMGn_TxALARMHI_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Timer x alarm trigger time-base counter value, high 32 bits. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "TIMGn_T0LOADLO_REG",
+      "description": "Timer 0 reload value, low 32 bits",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F018",
+        "TIMG1": "0x3FF60018"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x000000000",
+      "fields": [
+        {
+          "name": "TIMGn_TxLOADLO_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Low 32 bits of the value that a reload will load onto timer x time-base counter. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "TIMGn_T0LOADHI_REG",
+      "description": "Timer 0 reload value, high 32 bits",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F01C",
+        "TIMG1": "0x3FF6001C"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x000000000",
+      "fields": [
+        {
+          "name": "TIMGn_TxLOADHI_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "High 32 bits of the value that a reload will load onto timer x time-base counter. (R/W) Espressif Systems                                      228                        ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 10 Timer Group (TIMG)                                                                                                                                        GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "TIMGn_T0LOAD_REG",
+      "description": "",
+      "width": 32,
+      "access": "WO",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F020",
+        "TIMG1": "0x3FF60020"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x000000000",
+      "fields": [
+        {
+          "name": "TIMGn_TxLOAD_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "WO",
+          "description": "Write any value to trigger a timer x time-base counter reload. (WO)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "TIMGn_T1CONFIG_REG",
+      "description": "Timer 1 configuration register",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F024",
+        "TIMG1": "0x3FF60024"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 1 1 0x00001 0 0 0 0 0 0 0 0 0 0 0 0 0",
+      "fields": [
+        {
+          "name": "TIMGn_Tx_EN",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When set, the timer x time-base counter is enabled. (R/W)"
+        },
+        {
+          "name": "TIMGn_Tx_INCREASE",
+          "bits": "30",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When set, the timer x time-base counter will increment every clock tick. When cleared, the timer x time-base counter will decrement. (R/W)"
+        },
+        {
+          "name": "TIMGn_Tx_AUTORELOAD",
+          "bits": "29",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When set, timer x auto-reload at alarm is enabled. (R/W)"
+        },
+        {
+          "name": "TIMGn_Tx_DIVIDER",
+          "bits": "28:13",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Timer x clock (Tx_clk) prescale value. (R/W)"
+        },
+        {
+          "name": "TIMGn_Tx_EDGE_INT_EN",
+          "bits": "12",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When set, an alarm will generate an edge type interrupt. (R/W)"
+        },
+        {
+          "name": "TIMGn_Tx_LEVEL_INT_EN",
+          "bits": "11",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When set, an alarm will generate a level type interrupt. (R/W)"
+        },
+        {
+          "name": "TIMGn_Tx_ALARM_EN",
+          "bits": "10",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When set, the alarm is enabled. This bit is automatically cleared once an alarm occurs. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "9:0"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "TIMGn_T1LO_REG",
+      "description": "Timer 1 current value, low 32 bits",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F028",
+        "TIMG1": "0x3FF60028"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x000000000",
+      "fields": [
+        {
+          "name": "TIMGn_TxLO_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "RO",
+          "description": "After writing to TIMGn_TxUPDATE_REG, the low 32 bits of the time-base counter of timer x can be read here. (RO)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "TIMGn_T1HI_REG",
+      "description": "Timer 1 current value, high 32 bits",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F02C",
+        "TIMG1": "0x3FF6002C"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x000000000",
+      "fields": [
+        {
+          "name": "TIMGn_TxHI_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "RO",
+          "description": "After writing to TIMGn_TxUPDATE_REG, the high 32 bits of the time-base counter of timer x can be read here. (RO) Espressif Systems                                               227                                         ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 10 Timer Group (TIMG)                                                                    GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "TIMGn_T1UPDATE_REG",
+      "description": "",
+      "width": 32,
+      "access": "WO",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F030",
+        "TIMG1": "0x3FF60030"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x000000000",
+      "fields": [
+        {
+          "name": "TIMGn_TxUPDATE_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "WO",
+          "description": "Write any value to trigger a timer x time-base counter value update (timer x current value will be stored in registers above). (WO)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "TIMGn_T1ALARMLO_REG",
+      "description": "Timer 1 alarm value, low 32 bits",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F034",
+        "TIMG1": "0x3FF60034"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x000000000",
+      "fields": [
+        {
+          "name": "TIMGn_TxALARMLO_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Timer x alarm trigger time-base counter value, low 32 bits. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "TIMGn_T1ALARMHI_REG",
+      "description": "Timer 1 alarm value, high 32 bits",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F038",
+        "TIMG1": "0x3FF60038"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x000000000",
+      "fields": [
+        {
+          "name": "TIMGn_TxALARMHI_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Timer x alarm trigger time-base counter value, high 32 bits. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "TIMGn_T1LOADLO_REG",
+      "description": "Timer 1 reload value, low 32 bits",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F03C",
+        "TIMG1": "0x3FF6003C"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x000000000",
+      "fields": [
+        {
+          "name": "TIMGn_TxLOADLO_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Low 32 bits of the value that a reload will load onto timer x time-base counter. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "TIMGn_T1LOADHI_REG",
+      "description": "Timer 1 reload value, high 32 bits",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F040",
+        "TIMG1": "0x3FF60040"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x000000000",
+      "fields": [
+        {
+          "name": "TIMGn_TxLOADHI_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "High 32 bits of the value that a reload will load onto timer x time-base counter. (R/W) Espressif Systems                                      228                        ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 10 Timer Group (TIMG)                                                                                                                                        GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "TIMGn_T1LOAD_REG",
+      "description": "",
+      "width": 32,
+      "access": "WO",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F044",
+        "TIMG1": "0x3FF60044"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x000000000",
+      "fields": [
+        {
+          "name": "TIMGn_TxLOAD_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "WO",
+          "description": "Write any value to trigger a timer x time-base counter reload. (WO)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "TIMGn_WDTCONFIG0_REG",
+      "description": "Watchdog timer configuration regis-",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F048",
+        "TIMG1": "0x3FF60048"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0 0 0 0 0 0 0x1 0x1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0",
+      "fields": [
+        {
+          "name": "TIMGn_WDT_EN",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When set, MWDT is enabled. (R/W)"
+        },
+        {
+          "name": "TIMGn_WDT_STG0",
+          "bits": "30:29",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Stage 0 configuration. 0: off, 1: interrupt, 2: reset CPU, 3: reset system. (R/W)"
+        },
+        {
+          "name": "TIMGn_WDT_STG1",
+          "bits": "28:27",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Stage 1 configuration. 0: off, 1: interrupt, 2: reset CPU, 3: reset system. (R/W)"
+        },
+        {
+          "name": "TIMGn_WDT_STG2",
+          "bits": "26:25",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Stage 2 configuration. 0: off, 1: interrupt, 2: reset CPU, 3: reset system. (R/W)"
+        },
+        {
+          "name": "TIMGn_WDT_STG3",
+          "bits": "24:23",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Stage 3 configuration. 0: off, 1: interrupt, 2: reset CPU, 3: reset system. (R/W)"
+        },
+        {
+          "name": "TIMGn_WDT_EDGE_INT_EN",
+          "bits": "22",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When set, an edge type interrupt will occur at the timeout of a stage configured to generate an interrupt. (R/W)"
+        },
+        {
+          "name": "TIMGn_WDT_LEVEL_INT_EN",
+          "bits": "21",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When set, a level type interrupt will occur at the timeout of a stage configured to generate an interrupt. (R/W)"
+        },
+        {
+          "name": "TIMGn_WDT_CPU_RESET_LENGTH",
+          "bits": "20:18",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "CPU reset signal length selection. 0: 100 ns, 1: 200 ns, 2: 300 ns, 3: 400 ns, 4: 500 ns, 5: 800 ns, 6: 1.6 \u00b5s, 7: 3.2 \u00b5s. (R/W)"
+        },
+        {
+          "name": "TIMGn_WDT_SYS_RESET_LENGTH",
+          "bits": "17:15",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "System reset signal length selection. 0: 100 ns, 1: 200 ns, 2: 300 ns, 3: 400 ns, 4: 500 ns, 5: 800 ns, 6: 1.6 \u00b5s, 7: 3.2 \u00b5s. (R/W)"
+        },
+        {
+          "name": "TIMGn_WDT_FLASHBOOT_MOD_EN",
+          "bits": "14",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When set, Flash boot protection is enabled. (R/W) Espressif Systems                                                                                    229                                        ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 10 Timer Group (TIMG)                                                                                                 GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "13:0"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "TIMGn_WDTCONFIG1_REG",
+      "description": "Watchdog timer prescaler register",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F04C",
+        "TIMG1": "0x3FF6004C"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x00001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0",
+      "fields": [
+        {
+          "name": "TIMGn_WDT_CLK_PRESCALE",
+          "bits": "31:16",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "MWDT clock prescale value. MWDT clock period = MWDT\u2019s clock source period * TIMGn_WDT_CLK_PRESCALE. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "15:0"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "TIMGn_WDTCONFIG2_REG",
+      "description": "Watchdog timer stage 0 timeout",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F050",
+        "TIMG1": "0x3FF60050"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 26000000",
+      "fields": [
+        {
+          "name": "TIMGn_WDTCONFIG2_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Stage 0 timeout value, in MWDT clock cycles. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "TIMGn_WDTCONFIG3_REG",
+      "description": "Watchdog timer stage 1 timeout",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F054",
+        "TIMG1": "0x3FF60054"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x007FFFFFF",
+      "fields": [
+        {
+          "name": "TIMGn_WDTCONFIG3_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Stage 1 timeout value, in MWDT clock cycles. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "TIMGn_WDTCONFIG4_REG",
+      "description": "Watchdog timer stage 2 timeout",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F058",
+        "TIMG1": "0x3FF60058"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x0000FFFFF",
+      "fields": [
+        {
+          "name": "TIMGn_WDTCONFIG4_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Stage 2 timeout value, in MWDT clock cycles. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "TIMGn_WDTCONFIG5_REG",
+      "description": "Watchdog timer stage 3 timeout",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F05C",
+        "TIMG1": "0x3FF6005C"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x0000FFFFF",
+      "fields": [
+        {
+          "name": "TIMGn_WDTCONFIG5_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Stage 3 timeout value, in MWDT clock cycles. (R/W) Espressif Systems                                              230                                        ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 10 Timer Group (TIMG)                                                                                                              GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "TIMGn_WDTFEED_REG",
+      "description": "Write to feed the watchdog timer",
+      "width": 32,
+      "access": "WO",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F060",
+        "TIMG1": "0x3FF60060"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x000000000",
+      "fields": [
+        {
+          "name": "TIMGn_WDTFEED_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "WO",
+          "description": "Write any value to feed the MWDT. (WO)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "TIMGn_WDTWPROTECT_REG",
+      "description": "Watchdog write protect register",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F064",
+        "TIMG1": "0x3FF60064"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x050D83AA1",
+      "fields": [
+        {
+          "name": "TIMGn_WDTWPROTECT_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "If the register contains a different value than its reset value, write pro- tection is enabled. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "TIMGn_RTCCALICFG_REG",
+      "description": "RTC calibration configuration register",
+      "width": 32,
+      "access": "varies",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F068",
+        "TIMG1": "0x3FF60068"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0x01 0 0x1 1 0 0 0 0 0 0 0 0 0 0 0 0",
+      "fields": [
+        {
+          "name": "TIMGn_RTC_CALI_START_CYCLING",
+          "bits": "12",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Reserved. (R/W)"
+        },
+        {
+          "name": "TIMGn_RTC_CALI_CLK_SEL",
+          "bits": "14:13",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Used to select the clock to be calibrated. 0: RC_SLOW_CLK. 1: RC_FAST_DIV_CLK. 2: XTAL32K_CLK. (R/W)"
+        },
+        {
+          "name": "TIMGn_RTC_CALI_RDY",
+          "bits": "15",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "Set this bit to mark the completion of calibration. (RO)"
+        },
+        {
+          "name": "TIMGn_RTC_CALI_MAX",
+          "bits": "30:16",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Calibration time, in cycles of the clock to be calibrated. (R/W)"
+        },
+        {
+          "name": "TIMGn_RTC_CALI_START",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set this bit to starts calibration. (R/W) Espressif Systems                                              231                                                    ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 10 Timer Group (TIMG)                                                                                                                     GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "11:0"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "TIMGn_RTCCALICFG1_REG",
+      "description": "RTC calibration configuration register",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F06C",
+        "TIMG1": "0x3FF6006C"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x00000 0 0 0 0 0 0 0",
+      "fields": [
+        {
+          "name": "TIMGn_RTC_CALI_VALUE",
+          "bits": "31:7",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "Calibration value when cycles of clock to be calibrated reach TIMGn_RTC_CALI_MAX, in unit of XTAL_CLK clock cycles. (RO)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "6:0"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "TIMGn_INT_ENA_REG",
+      "description": "Interrupt enable bits",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F098",
+        "TIMG1": "0x3FF60098"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "TIMGn_INT_WDT_INT_ENA",
+          "bits": "2",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The interrupt enable bit for the TIMGn_INT_WDT_INT interrupt. (R/W) (R/W)"
+        },
+        {
+          "name": "TIMGn_INT_T1_INT_ENA",
+          "bits": "1",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The interrupt enable bit for the TIMGn_INT_T1_INT interrupt. (R/W) (R/W)"
+        },
+        {
+          "name": "TIMGn_INT_T0_INT_ENA",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The interrupt enable bit for the TIMGn_INT_T0_INT interrupt. (R/W) (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:3"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "TIMGn_INT_RAW_REG",
+      "description": "Raw interrupt status",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F09C",
+        "TIMG1": "0x3FF6009C"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "TIMGn_INT_WDT_INT_RAW",
+          "bits": "2",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The raw interrupt status bit for the TIMGn_INT_WDT_INT interrupt. (RO)"
+        },
+        {
+          "name": "TIMGn_INT_T1_INT_RAW",
+          "bits": "1",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The raw interrupt status bit for the TIMGn_INT_T1_INT interrupt. (RO)"
+        },
+        {
+          "name": "TIMGn_INT_T0_INT_RAW",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The raw interrupt status bit for the TIMGn_INT_T0_INT interrupt. (RO) Espressif Systems                                                          232                                          ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 10 Timer Group (TIMG)                                                                                                        GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:3"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "TIMGn_INT_ST_REG",
+      "description": "Masked interrupt status",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F0A0",
+        "TIMG1": "0x3FF600A0"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "TIMGn_INT_WDT_INT_ST",
+          "bits": "2",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The masked interrupt status bit for the TIMGn_INT_WDT_INT interrupt. (RO)"
+        },
+        {
+          "name": "TIMGn_INT_T1_INT_ST",
+          "bits": "1",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The masked interrupt status bit for the TIMGn_INT_T1_INT interrupt. (RO)"
+        },
+        {
+          "name": "TIMGn_INT_T0_INT_ST",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The masked interrupt status bit for the TIMGn_INT_T0_INT interrupt. (RO)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:3"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "TIMGn_INT_CLR_REG",
+      "description": "Interrupt clear bits",
+      "width": 32,
+      "access": "WO",
+      "absolute_addresses": {
+        "TIMG0": "0x3FF5F0A4",
+        "TIMG1": "0x3FF600A4"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "TIMGn_INT_WDT_INT_CLR",
+          "bits": "2",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the TIMGn_INT_WDT_INT interrupt. (WO)"
+        },
+        {
+          "name": "TIMGn_INT_T1_INT_CLR",
+          "bits": "1",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the TIMGn_INT_T1_INT interrupt. (WO)"
+        },
+        {
+          "name": "TIMGn_INT_T0_INT_CLR",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the TIMGn_INT_T0_INT interrupt. (WO) Espressif Systems                                                      233                                     ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 11 Watchdog Timers (WDT)                                                                      GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:3"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    }
+  ],
+  "global_dependencies": [
+    "Clock gate: DPORT_TIMERGROUP_CLK_EN (TIMG0), DPORT_TIMERGROUP1_CLK_EN (TIMG1) bits in DPORT_PERIP_CLK_EN_REG (0x3FF000C0).",
+    "TIMGn_TxCONFIG_REG (enable + prescaler) must be configured before the 64-bit counter (TIMGn_TxLO_REG/TIMGn_TxHI_REG) runs.",
+    "TIMGn_WDTWPROTECT_REG (write-protect key register) must be written with 0x50D83AA1 to unlock WDT configuration registers before modifying TIMGn_WDTCONFIG0-5_REG or feeding via TIMGn_WDTFEED_REG; writing any other value re-locks write protection.",
+    "IMPORTANT SCOPE NOTE: Chapter 11 'Watchdog Timers (WDT)' has NO registers of its own. The Main System Watchdog (MWDT) registers are the TIMGn_WDTCONFIG0-5_REG / TIMGn_WDTFEED_REG / TIMGn_WDTWPROTECT_REG entries already included in this file. The RTC Watchdog (RWDT) registers (RTC_CNTL_WDTCONFIG0-5_REG, RTC_CNTL_WDTFEED_REG, RTC_CNTL_WDTWPROTECT_REG) live in the RTC_CNTL peripheral (Chapter 9, Low-Power Management), which was not in the requested extraction scope and is not included here.",
+    "BIT-POSITION VERIFICATION: all TIMG fields achieved high-confidence geometric verification."
+  ]
+}

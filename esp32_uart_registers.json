@@ -1,0 +1,1267 @@
+{
+  "peripheral": "UART",
+  "base_address": "UART0: 0x3FF40000, UART1: 0x3FF50000, UART2: 0x3FF6E000",
+  "source_page": "Chapter 19 UART Controller (UART), Section 19.4.1 UART Register Summary / 19.5.1 UART Registers, ESP32 TRM v5.7",
+  "registers": [
+    {
+      "name": "UART_CONF0_REG",
+      "description": "Configuration register",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "UART0": "0x3FF40020",
+        "UART1": "0x3FF50020",
+        "UART2": "0x3FF6E020"
+      },
+      "reset_value": "not specified in extracted text",
+      "fields": [
+        {
+          "name": "UART_SW_DTR",
+          "bits": "7",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to configure the software DTR signal used in software flow control. (R/W)"
+        },
+        {
+          "name": "UART_SW_RTS",
+          "bits": "6",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This bit is used in hardware flow control when UART_RX_FLOW_EN is 0. Set this bit to drive the RTS (or rtsn_out) signal low, and reset to drive the signal high. (R/W)"
+        },
+        {
+          "name": "UART_STOP_BIT_NUM",
+          "bits": "5:4",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to set the length of the stop bit. 0: Invalid. No effect 1: 1 bit 2: 1.5 bits 3: 2 bits (R/W)"
+        },
+        {
+          "name": "UART_BIT_NUM",
+          "bits": "3:2",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to set the length of data; 0: 5 bits, 1: 6 bits, 2: 7 bits, 3: 8 bits. (R/W)"
+        },
+        {
+          "name": "UART_PARITY_EN",
+          "bits": "1",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set this bit to enable the UART parity check. (R/W)"
+        },
+        {
+          "name": "UART_PARITY",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to configure the parity check mode; 0: even, 1: odd. (R/W) Espressif Systems                                    333                              ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 19 UART Controller (UART)                                                                                                                  GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:28",
+        "26:25"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_CONF1_REG",
+      "description": "Configuration register 1",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "UART0": "0x3FF40024",
+        "UART1": "0x3FF50024",
+        "UART2": "0x3FF6E024"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0 0 0 0 0 0 0 0 0x00 0 0x60 0 0x60",
+      "fields": [
+        {
+          "name": "UART_RX_TOUT_EN",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This is the enable bit for the UART receive-timeout function. (R/W)"
+        },
+        {
+          "name": "UART_RX_TOUT_THRHD",
+          "bits": "30:24",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to configure the UART receiver\u2019s timeout value when receiving a byte. When using APB_CLK as the clock source, the register counts by UART baud cycle multiplied by 8. When using REF_TICK as the clock source, the register counts by UART baud cycle * 8 * (REF_TICK frequency)/(APB_CLK frequency). (R/W)"
+        },
+        {
+          "name": "UART_RX_FLOW_EN",
+          "bits": "23",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This is the flow enable bit of the UART receiver; 1: choose software flow control by configuring the sw_rts signal; 0: disable software flow control. (R/W)"
+        },
+        {
+          "name": "UART_RX_FLOW_THRHD",
+          "bits": "22:16",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When UART_RX_FLOW_EN is 1 and the receiver gets more data than its threshold value, the receiver produces an rtsn_out signal that tells the transmitter to stop trans- ferring data. The threshold value is (rx_flow_thrhd_h3, rx_flow_thrhd). (R/W)"
+        },
+        {
+          "name": "UART_TXFIFO_EMPTY_THRHD",
+          "bits": "14:8",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When the data amount in transmit-FIFO is less than its thresh- old value, it will produce a TXFIFO_EMPTY_INT_RAW interrupt.                                               The threshold value is (tx_mem_empty_thrhd, txfifo_empty_thrhd). (R/W)"
+        },
+        {
+          "name": "UART_RXFIFO_FULL_THRHD",
+          "bits": "6:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When the receiver gets more data than its threshold value, the receiver will produce an RXFIFO_FULL_INT_RAW interrupt.                                                The threshold value is (rx_flow_thrhd_h3, rxfifo_full_thrhd). (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "15",
+        "7"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_CLKDIV_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "UART0": "0x3FF40014",
+        "UART1": "0x3FF50014",
+        "UART2": "0x3FF6E014"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0 0 0 0 0 0 0 0x00 0x0002B6",
+      "fields": [
+        {
+          "name": "UART_CLKDIV_FRAG",
+          "bits": "23:20",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The decimal part of the frequency divider factor. (R/W)"
+        },
+        {
+          "name": "UART_CLKDIV",
+          "bits": "19:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The integral part of the frequency divider factor. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:24"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_FLOW_CONF_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "UART0": "0x3FF40034",
+        "UART1": "0x3FF50034",
+        "UART2": "0x3FF6E034"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "UART_SEND_XOFF",
+          "bits": "5",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Hardware auto-clear; set to 1 to send Xoff char. (R/W)"
+        },
+        {
+          "name": "UART_SEND_XON",
+          "bits": "4",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Hardware auto-clear; set to 1 to send Xon char. (R/W)"
+        },
+        {
+          "name": "UART_FORCE_XOFF",
+          "bits": "3",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set this bit to set the internal CTSn and stop the transmitter from sending data. (R/W)"
+        },
+        {
+          "name": "UART_FORCE_XON",
+          "bits": "2",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set this bit to clear the internal CTSn and enable the transmitter to continue sending data. (R/W)"
+        },
+        {
+          "name": "UART_XONOFF_DEL",
+          "bits": "1",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set this bit to remove the flow-control char from the received data. (R/W)"
+        },
+        {
+          "name": "UART_SW_FLOW_CON_EN",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set this bit to enable software flow control. It is used with register sw_xon or sw_xoff. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:6"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_SWFC_CONF_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "UART0": "0x3FF4003C",
+        "UART1": "0x3FF5003C",
+        "UART2": "0x3FF6E03C"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x013 0x011 0x0E0 0x000",
+      "fields": [
+        {
+          "name": "UART_XOFF_CHAR",
+          "bits": "31:24",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register stores the Xoff flow control char. (R/W)"
+        },
+        {
+          "name": "UART_XON_CHAR",
+          "bits": "23:16",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register stores the Xon flow control char. (R/W)"
+        },
+        {
+          "name": "UART_XOFF_THRESHOLD",
+          "bits": "15:8",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When the data amount in receive-FIFO is more than what this register indicates, it will send an Xoff char, with uart_sw_flow_con_en set to 1. (R/W)"
+        },
+        {
+          "name": "UART_XON_THRESHOLD",
+          "bits": "7:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When the data amount in receive-FIFO is less than what this register indi- cates, it will send an Xon char, with uart_sw_flow_con_en set to 1. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "UART_SLEEP_CONF_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "UART0": "0x3FF40038",
+        "UART1": "0x3FF50038",
+        "UART2": "0x3FF6E038"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0x0F0",
+      "fields": [
+        {
+          "name": "UART_ACTIVE_THRESHOLD",
+          "bits": "9:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When the number of positive edges of RxD signal is larger than or equal to (UART_ACTIVE_THRESHOLD+2), the system emerges from Light-sleep mode and becomes active. (R/W) Espressif Systems                                                      336                                            ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 19 UART Controller (UART)                                                                                                                   GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:10"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_IDLE_CONF_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "UART0": "0x3FF40040",
+        "UART1": "0x3FF50040",
+        "UART2": "0x3FF6E040"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0 0 0 0x00A 0x100 0x100",
+      "fields": [
+        {
+          "name": "UART_TX_BRK_NUM",
+          "bits": "27:20",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to configure the number of zeros (0) sent, after the pro- cess of sending data is completed. It is active when txd_brk is set to 1. (R/W)"
+        },
+        {
+          "name": "UART_TX_IDLE_NUM",
+          "bits": "19:10",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to configure the duration between transfers. (R/W)"
+        },
+        {
+          "name": "UART_RX_IDLE_THRHD",
+          "bits": "9:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When the receiver takes more time to receive Byte data than what this reg- ister indicates, it will produce a frame-end signal. (R/W) Espressif Systems                                                                337                                         ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 19 UART Controller (UART)                                                                                                                 GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:28"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_RS485_CONF_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "UART0": "0x3FF40044",
+        "UART1": "0x3FF50044",
+        "UART2": "0x3FF6E044"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "UART_RS485_TX_DLY_NUM",
+          "bits": "9:6",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to delay the transmitter\u2019s internal data signal. (R/W)"
+        },
+        {
+          "name": "UART_RS485_RX_DLY_NUM",
+          "bits": "5",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to delay the receiver\u2019s internal data signal. (R/W)"
+        },
+        {
+          "name": "UART_RS485RXBY_TX_EN",
+          "bits": "4",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "1: enable the RS-485 transmitter to send data, when the RS-485 receiver line is busy; 0: the RS-485 transmitter should not send data, when its receiver is busy. (R/W)"
+        },
+        {
+          "name": "UART_RS485TX_RX_EN",
+          "bits": "3",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set this bit to enable the transmitter\u2019s output signal loop back to the re- ceiver\u2019s input signal. (R/W)"
+        },
+        {
+          "name": "UART_DL1_EN",
+          "bits": "2",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set this bit to delay the STOP bit by 1 bit. (R/W)"
+        },
+        {
+          "name": "UART_DL0_EN",
+          "bits": "1",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set this bit to delay the STOP bit by 1 bit after DL1. (R/W)"
+        },
+        {
+          "name": "UART_RS485_EN",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set this bit to choose the RS-485 mode. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:10"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_STATUS_REG",
+      "description": "UART status register",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "UART0": "0x3FF4001C",
+        "UART1": "0x3FF5001C",
+        "UART2": "0x3FF6E01C"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "UART_TXD",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "This bit represents the level of the internal UART RxD signal. (RO)"
+        },
+        {
+          "name": "UART_RTSN",
+          "bits": "30",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "This bit corresponds to the level of the internal UART CTS signal. (RO)"
+        },
+        {
+          "name": "UART_DTRN",
+          "bits": "29",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "This bit corresponds to the level of the internal UAR DSR signal. (RO)"
+        },
+        {
+          "name": "UART_ST_UTX_OUT",
+          "bits": "27:24",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "This register stores the state of the transmitter\u2019s finite state machine.                                                          0: TX_IDLE; 1: TX_STRT; 2: TX_DAT0; 3: TX_DAT1; 4: TX_DAT2; 5: TX_DAT3; 6: TX_DAT4; 7: TX_DAT5; 8: TX_DAT6; 9: TX_DAT7; 10: TX_PRTY; 11: TX_STP1; 12: TX_STP2; 13: TX_DL0; 14: TX_DL1. (RO)"
+        },
+        {
+          "name": "UART_TXFIFO_CNT",
+          "bits": "23:16",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "(tx_mem_cnt, txfifo_cnt) stores the number of bytes of valid data in transmit- FIFO. tx_mem_cnt stores the three most significant bits, txfifo_cnt stores the eight least signifi- cant bits. (RO)"
+        },
+        {
+          "name": "UART_RXD",
+          "bits": "15",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "This bit corresponds to the level of the internal UART RxD signal. (RO)"
+        },
+        {
+          "name": "UART_CTSN",
+          "bits": "14",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "This bit corresponds to the level of the internal UART CTS signal. (RO)"
+        },
+        {
+          "name": "UART_DSRN",
+          "bits": "13",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "This bit corresponds to the level of the internal UAR DSR signal. (RO)"
+        },
+        {
+          "name": "UART_ST_URX_OUT",
+          "bits": "11:8",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "This register stores the value of the receiver\u2019s finite state machine. 0: RX_IDLE; 1: RX_STRT; 2: RX_DAT0; 3: RX_DAT1; 4: RX_DAT2; 5: RX_DAT3; 6: RX_DAT4; 7: RX_DAT5; 8: RX_DAT6; 9: RX_DAT7; 10: RX_PRTY; 11: RX_STP1; 12:RX_STP2; 13: RX_DL1. (RO)"
+        },
+        {
+          "name": "UART_RXFIFO_CNT",
+          "bits": "7:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "(rx_mem_cnt, rxfifo_cnt) stores the number of bytes of valid data in the receive-FIFO. rx_mem_cnt register stores the three most significant bits, rxfifo_cnt stores the eight least significant bits. (RO) Espressif Systems                                                                 331                                          ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 19 UART Controller (UART)                                                                                                                             GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "28",
+        "12"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_MEM_TX_STATUS_REG",
+      "description": "TX FIFO write and read",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "UART0": "0x3FF4005C",
+        "UART1": "0x3FF5005C",
+        "UART2": "0x3FF6E05C"
+      },
+      "reset_value": "0x0",
+      "fields": [
+        {
+          "name": "UART_MEM_TX_WR_ADDR",
+          "bits": "23:13",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "Represents the offset address to write TX FIFO. (RO)"
+        },
+        {
+          "name": "UART_MEM_TX_RD_ADDR",
+          "bits": "12:2",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "Represents the offset address to read TX FIFO. (RO) Espressif Systems                                                                             340                                                     ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 19 UART Controller (UART)                                                                                                                                      GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:24",
+        "1:0"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_MEM_RX_STATUS_REG",
+      "description": "RX FIFO write and read",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "UART0": "0x3FF40060",
+        "UART1": "0x3FF50060",
+        "UART2": "0x3FF6E060"
+      },
+      "reset_value": "0x0",
+      "fields": [
+        {
+          "name": "UART_MEM_RX_RD_ADDR",
+          "bits": "12:2",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "Represents the offset address to read RX FIFO. (RO)"
+        },
+        {
+          "name": "UART_MEM_RX_WR_ADDR",
+          "bits": "23:13",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "Represents the offset address to write RX FIFO. (RO)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:24",
+        "1:0"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_AUTOBAUD_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "UART0": "0x3FF40018",
+        "UART1": "0x3FF50018",
+        "UART2": "0x3FF6E018"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0x010 0 0 0 0 0 0 0 0",
+      "fields": [
+        {
+          "name": "UART_GLITCH_FILT",
+          "bits": "15:8",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When the input pulse width is lower than this value, the pulse is ignored. This register is used in the autobauding process. (R/W)"
+        },
+        {
+          "name": "UART_AUTOBAUD_EN",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This is the enable bit for autobaud. (R/W) Espressif Systems                                                           330                                        ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 19 UART Controller (UART)                                                                                                                    GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:16",
+        "7:1"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_LOWPULSE_REG",
+      "description": "low pulse duration",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "UART0": "0x3FF40028",
+        "UART1": "0x3FF50028",
+        "UART2": "0x3FF6E028"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0 0 0 0 0 0 0 0 0 0 0 0x0FFFFF",
+      "fields": [
+        {
+          "name": "UART_LOWPULSE_MIN_CNT",
+          "bits": "19:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "This register stores the value of the minimum duration of the low-level pulse. It is used in the baud rate detection process. (RO) Espressif Systems                                                                  334                                        ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 19 UART Controller (UART)                                                                                                             GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:20"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_HIGHPULSE_REG",
+      "description": "high pulse duration",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "UART0": "0x3FF4002C",
+        "UART1": "0x3FF5002C",
+        "UART2": "0x3FF6E02C"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0 0 0 0 0 0 0 0 0 0 0 0x0FFFFF",
+      "fields": [
+        {
+          "name": "UART_HIGHPULSE_MIN_CNT",
+          "bits": "19:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "This register stores the value of the minimum duration of the high level pulse. It is used in baud rate detection process. (RO)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:20"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_POSPULSE_REG",
+      "description": "",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "UART0": "0x3FF40068",
+        "UART1": "0x3FF50068",
+        "UART2": "0x3FF6E068"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0 0 0 0 0 0 0 0 0 0 0 0x0FFFFF",
+      "fields": [
+        {
+          "name": "UART_POSEDGE_MIN_CNT",
+          "bits": "19:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "This register stores the count of RxD positive edges. It is used in the autobaud detection process. (RO) Espressif Systems                                                                 341                                                ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 19 UART Controller (UART)                                                                                                                         GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:20"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_NEGPULSE_REG",
+      "description": "",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "UART0": "0x3FF4006C",
+        "UART1": "0x3FF5006C",
+        "UART2": "0x3FF6E06C"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0 0 0 0 0 0 0 0 0 0 0 0x0FFFFF",
+      "fields": [
+        {
+          "name": "UART_NEGEDGE_MIN_CNT",
+          "bits": "19:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "This register stores the count of RxD negative edges. It is used in the autobaud detection process. (RO)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:20"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_RXD_CNT_REG",
+      "description": "",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "UART0": "0x3FF40030",
+        "UART1": "0x3FF50030",
+        "UART2": "0x3FF6E030"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0x000",
+      "fields": [
+        {
+          "name": "UART_RXD_EDGE_CNT",
+          "bits": "9:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "This register stores the count of the RxD edge change. It is used in the baud rate detection process. (RO) Espressif Systems                                                         335                                          ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 19 UART Controller (UART)                                                                                                             GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:10"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_AT_CMD_PRECNT_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "UART0": "0x3FF40048",
+        "UART1": "0x3FF50048",
+        "UART2": "0x3FF6E048"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0 0 0 0 0 0 0 0x0186A00",
+      "fields": [
+        {
+          "name": "UART_PRE_IDLE_NUM",
+          "bits": "23:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to configure the idle-time duration before the first at_cmd is received by the receiver. When the duration is less than what this register indicates, it will not take the next data received as an at_cmd char. (R/W) Espressif Systems                                                           338                                               ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 19 UART Controller (UART)                                                                                                GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:24"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_AT_CMD_POSTCNT_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "UART0": "0x3FF4004C",
+        "UART1": "0x3FF5004C",
+        "UART2": "0x3FF6E04C"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0 0 0 0 0 0 0 0x0186A00",
+      "fields": [
+        {
+          "name": "UART_POST_IDLE_NUM",
+          "bits": "23:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to configure the duration between the last at_cmd and the next data. When the duration is less than what this register indicates, it will not take the previous data as an at_cmd char. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:24"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_AT_CMD_GAPTOUT_REG",
+      "description": "Timeout configuration",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "UART0": "0x3FF40050",
+        "UART1": "0x3FF50050",
+        "UART2": "0x3FF6E050"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0 0 0 0 0 0 0 0x0001E00",
+      "fields": [
+        {
+          "name": "UART_RX_GAP_TOUT",
+          "bits": "23:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to configure the interval between the at_cmd chars. When the interval is greater than the value of this register, it will not take the data as continuous at_cmd chars. The register should be configured to more than half of the baud rate. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:24"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_AT_CMD_CHAR_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "UART0": "0x3FF40054",
+        "UART1": "0x3FF50054",
+        "UART2": "0x3FF6E054"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0x003 0x02B",
+      "fields": [
+        {
+          "name": "UART_CHAR_NUM",
+          "bits": "15:8",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to configure the number of continuous at_cmd chars re- ceived by the receiver. (R/W)"
+        },
+        {
+          "name": "UART_AT_CMD_CHAR",
+          "bits": "7:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to configure the content of an at_cmd char. (R/W) Espressif Systems                                                         339                                 ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 19 UART Controller (UART)                                                                                                                                                          GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:16"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_FIFO_REG",
+      "description": "FIFO data register",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "UART0": "0x3FF40000",
+        "UART1": "0x3FF50000",
+        "UART2": "0x3FF6E000"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "UART_RXFIFO_RD_BYTE",
+          "bits": "7:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "UARTn accesses FIFO via this register. (R/W) Espressif Systems                                                       322                                       ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 19 UART Controller (UART)                                                                                                                      GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:8"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_MEM_CONF_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "UART0": "0x3FF40058",
+        "UART1": "0x3FF50058",
+        "UART2": "0x3FF6E058"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0x0 0x0 0x0 0x0 0x0 0x0 0 0 0 0 0x01 0x01 0 0 0",
+      "fields": [
+        {
+          "name": "UART_TX_MEM_EMPTY_THRHD",
+          "bits": "30:28",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Refer to the description of TXFIFO_EMPTY_THRHD. (R/W)"
+        },
+        {
+          "name": "UART_RX_MEM_FULL_THRHD",
+          "bits": "27:25",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Refer to the description of RXFIFO_FULL_THRHD. (R/W)"
+        },
+        {
+          "name": "UART_XOFF_THRESHOLD_H2",
+          "bits": "24:23",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Refer to the description of UART_XOFF_THRESHOLD. (R/W)"
+        },
+        {
+          "name": "UART_XON_THRESHOLD_H2",
+          "bits": "22:21",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Refer to the description of UART_XON_THRESHOLD. (R/W)"
+        },
+        {
+          "name": "UART_RX_TOUT_THRHD_H3",
+          "bits": "20:18",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Refer to the description of RX_TOUT_THRHD. (R/W)"
+        },
+        {
+          "name": "UART_RX_FLOW_THRHD_H3",
+          "bits": "17:15",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Refer to the description of RX_FLOW_THRHD. (R/W)"
+        },
+        {
+          "name": "UART_TX_SIZE",
+          "bits": "10:7",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to configure the amount of memory allocated to the transmit- FIFO. The default number is 128 bytes. (R/W)"
+        },
+        {
+          "name": "UART_RX_SIZE",
+          "bits": "6:3",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to configure the amount of memory allocated to the receive- FIFO. The default number is 128 bytes. (R/W)"
+        },
+        {
+          "name": "UART_MEM_PD",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set this bit to power down the memory. When the reg_mem_pd register is set to 1 for all UART controllers, Memory will enter the low-power mode. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31",
+        "14:11",
+        "2:1"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_MEM_CNT_STATUS_REG",
+      "description": "",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "UART0": "0x3FF40064",
+        "UART1": "0x3FF50064",
+        "UART2": "0x3FF6E064"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "UART_TX_MEM_CNT",
+          "bits": "5:3",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "Refer to the description of TXFIFO_CNT. (RO)"
+        },
+        {
+          "name": "UART_RX_MEM_CNT",
+          "bits": "2:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "Refer to the description of RXFIFO_CNT. (RO)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:6"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_INT_RAW_REG",
+      "description": "Raw interrupt status",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "UART0": "0x3FF40004",
+        "UART1": "0x3FF50004",
+        "UART2": "0x3FF6E004"
+      },
+      "reset_value": "not specified in extracted text",
+      "fields": [
+        {
+          "name": "UART_PARITY_ERR_INT_RAW",
+          "bits": "2",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The raw interrupt status bit for the UART_PARITY_ERR_INT interrupt. (RO)"
+        },
+        {
+          "name": "UART_TXFIFO_EMPTY_INT_RAW",
+          "bits": "1",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The raw interrupt status bit for the UART_TXFIFO_EMPTY_INT in- terrupt. (RO)"
+        },
+        {
+          "name": "UART_RXFIFO_FULL_INT_RAW",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The raw interrupt status bit for the UART_RXFIFO_FULL_INT inter- rupt. (RO) Espressif Systems                                324                         ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 19 UART Controller (UART)                                                                                                                         GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:19"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_INT_ST_REG",
+      "description": "",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "UART0": "0x3FF40008",
+        "UART1": "0x3FF50008",
+        "UART2": "0x3FF6E008"
+      },
+      "reset_value": "not specified in extracted text",
+      "fields": [
+        {
+          "name": "UART_RXFIFO_OVF_INT_ST",
+          "bits": "4",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The masked interrupt status bit for the UART_RXFIFO_OVF_INT inter- rupt. (RO)"
+        },
+        {
+          "name": "UART_FRM_ERR_INT_ST",
+          "bits": "3",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The masked interrupt status bit for the UART_FRM_ERR_INT interrupt. (RO)"
+        },
+        {
+          "name": "UART_PARITY_ERR_INT_ST",
+          "bits": "2",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The masked interrupt status bit for the UART_PARITY_ERR_INT interrupt. (RO)"
+        },
+        {
+          "name": "UART_TXFIFO_EMPTY_INT_ST",
+          "bits": "1",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The masked interrupt status bit for the UART_TXFIFO_EMPTY_INT in- terrupt. (RO)"
+        },
+        {
+          "name": "UART_RXFIFO_FULL_INT_ST",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The masked interrupt status bit for UART_RXFIFO_FULL_INT. (RO) Espressif Systems                                326                           ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 19 UART Controller (UART)                                                                                                                     GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:19"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_INT_ENA_REG",
+      "description": "Interrupt enable bits",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "UART0": "0x3FF4000C",
+        "UART1": "0x3FF5000C",
+        "UART2": "0x3FF6E00C"
+      },
+      "reset_value": "not specified in extracted text",
+      "fields": [
+        {
+          "name": "UART_TXFIFO_EMPTY_INT_ENA",
+          "bits": "1",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The interrupt enable bit for the UART_TXFIFO_EMPTY_INT interrupt. (R/W)"
+        },
+        {
+          "name": "UART_RXFIFO_FULL_INT_ENA",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The interrupt enable bit for the UART_RXFIFO_FULL_INT interrupt. (R/W) Espressif Systems                                328                         ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 19 UART Controller (UART)                                                                                                                 GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:19"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "UART_INT_CLR_REG",
+      "description": "Interrupt clear bits",
+      "width": 32,
+      "access": "WO",
+      "absolute_addresses": {
+        "UART0": "0x3FF40010",
+        "UART1": "0x3FF50010",
+        "UART2": "0x3FF6E010"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "UART_AT_CMD_CHAR_DET_INT_CLR",
+          "bits": "18",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the UART_AT_CMD_CHAR_DET_INT inter- rupt. (WO)"
+        },
+        {
+          "name": "UART_RS485_CLASH_INT_CLR",
+          "bits": "17",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the UART_RS485_CLASH_INT interrupt. (WO)"
+        },
+        {
+          "name": "UART_RS485_FRM_ERR_INT_CLR",
+          "bits": "16",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the UART_RS485_FRM_ERR_INT interrupt. (WO)"
+        },
+        {
+          "name": "UART_RS485_PARITY_ERR_INT_CLR",
+          "bits": "15",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the UART_RS485_PARITY_ERR_INT inter- rupt. (WO)"
+        },
+        {
+          "name": "UART_TX_DONE_INT_CLR",
+          "bits": "14",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the UART_TX_DONE_INT interrupt. (WO)"
+        },
+        {
+          "name": "UART_TX_BRK_IDLE_DONE_INT_CLR",
+          "bits": "13",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the UART_TX_BRK_IDLE_DONE_INT in- terrupt. (WO)"
+        },
+        {
+          "name": "UART_TX_BRK_DONE_INT_CLR",
+          "bits": "12",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the UART_TX_BRK_DONE_INT interrupt. (WO)"
+        },
+        {
+          "name": "UART_GLITCH_DET_INT_CLR",
+          "bits": "11",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the UART_GLITCH_DET_INT interrupt. (WO)"
+        },
+        {
+          "name": "UART_SW_XOFF_INT_CLR",
+          "bits": "10",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the UART_SW_XOFF_INT interrupt. (WO)"
+        },
+        {
+          "name": "UART_SW_XON_INT_CLR",
+          "bits": "9",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the UART_SW_XON_INT interrupt. (WO)"
+        },
+        {
+          "name": "UART_RXFIFO_TOUT_INT_CLR",
+          "bits": "8",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the UART_RXFIFO_TOUT_INT interrupt. This bit can be set only when both rxfifo_cnt and rx_mem_cnt are 0. (WO)"
+        },
+        {
+          "name": "UART_BRK_DET_INT_CLR",
+          "bits": "7",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the UART_BRK_DET_INT interrupt. (WO)"
+        },
+        {
+          "name": "UART_CTS_CHG_INT_CLR",
+          "bits": "6",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the UART_CTS_CHG_INT interrupt. (WO)"
+        },
+        {
+          "name": "UART_DSR_CHG_INT_CLR",
+          "bits": "5",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the UART_DSR_CHG_INT interrupt. (WO)"
+        },
+        {
+          "name": "UART_RXFIFO_OVF_INT_CLR",
+          "bits": "4",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the UART_RXFIFO_OVF_INT interrupt. (WO)"
+        },
+        {
+          "name": "UART_FRM_ERR_INT_CLR",
+          "bits": "3",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the UART_FRM_ERR_INT interrupt. (WO)"
+        },
+        {
+          "name": "UART_PARITY_ERR_INT_CLR",
+          "bits": "2",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the UART_PARITY_ERR_INT interrupt. (WO)"
+        },
+        {
+          "name": "UART_TXFIFO_EMPTY_INT_CLR",
+          "bits": "1",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the UART_TXFIFO_EMPTY_INT interrupt. (WO)"
+        },
+        {
+          "name": "UART_RXFIFO_FULL_INT_CLR",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the UART_RXFIFO_FULL_INT interrupt. This bit can be set only when data in Rx_FIFO is less than UART_RXFIFO_FULL_THRHD. (WO) Espressif Systems                                                               329                                           ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 19 UART Controller (UART)                                                                                                                 GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:19"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    }
+  ],
+  "global_dependencies": [
+    "Clock gate: DPORT_UART_CLK_EN (UART0), DPORT_UART1_CLK_EN (UART1), DPORT_UART2_CLK_EN (UART2) bits in DPORT_PERIP_CLK_EN_REG (0x3FF000C0) must be set to 1 before the corresponding UART's registers are accessible.",
+    "DPORT_UART_MEM_CLK_EN bit (same register) gates the shared UART0-2 FIFO memory; per the manual, this must be enabled 'to use any UART peripherals'.",
+    "Corresponding reset bits exist in DPORT_PERIP_RST_EN_REG (0x3FF000C4) and must be de-asserted (0) for the UART to run.",
+    "UART pins must be routed via the GPIO Matrix (GPIO_FUNCn_IN_SEL_CFG_REG / GPIO_FUNCn_OUT_SEL_CFG_REG in Chapter 6) or IO_MUX direct mode before UART signals reach physical pins.",
+    "UART_CLKDIV_REG (baud rate divisor) should be configured, along with UART_CONF0_REG (data bits/parity/stop bits), before UART_CONF0_REG's UART_TX/RXFIFO_RST or enabling reception.",
+    "BIT-POSITION VERIFICATION: same divider-line-based geometric method as GPIO (see that file's note); UART fields achieved high-confidence verification for all but a couple of fields - check 'bit_confidence' per field."
+  ]
+}

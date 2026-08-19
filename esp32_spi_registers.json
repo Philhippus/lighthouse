@@ -1,0 +1,2172 @@
+{
+  "peripheral": "SPI",
+  "base_address": "SPI0: 0x3FF43000, SPI1: 0x3FF42000, SPI2 (HSPI): 0x3FF64000, SPI3 (VSPI): 0x3FF65000",
+  "source_page": "Chapter 20 SPI Controller (SPI), Section 20.7 Register Summary / 20.8 Registers, ESP32 TRM v5.7",
+  "registers": [
+    {
+      "name": "SPI_CTRL_REG",
+      "description": "QIO/DIO/QOUT/DOUT",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43008",
+        "SPI1": "0x3FF42008",
+        "SPI2": "0x3FF64008",
+        "SPI3": "0x3FF65008"
+      },
+      "reset_value": "0x00202000",
+      "fields": [
+        {
+          "name": "SPI_WR_BIT_ORDER",
+          "bits": "26",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This bit determines the bit order for command, address and data in transmitted signal. 1: sends LSB first; 0: sends MSB first. (R/W)"
+        },
+        {
+          "name": "SPI_RD_BIT_ORDER",
+          "bits": "25",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This bit determines the bit order for received data in received signal. 1: re- ceives LSB first; 0: receives MSB first. (R/W)"
+        },
+        {
+          "name": "SPI_FREAD_QIO",
+          "bits": "24",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This bit is used to enable four-line address writes and data reads in QSPI mode. (R/W)"
+        },
+        {
+          "name": "SPI_FREAD_DIO",
+          "bits": "23",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This bit is used to enable two-line address writes and data reads in QSPI mode. (R/W)"
+        },
+        {
+          "name": "SPI_WP",
+          "bits": "21",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This bit determines the write-protection signal output when SPI is idle in QSPI mode. 1: output high; 0: output low. (R/W)"
+        },
+        {
+          "name": "SPI_FREAD_QUAD",
+          "bits": "20",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This bit is used to enable four-line data reads in QSPI mode. (R/W)"
+        },
+        {
+          "name": "SPI_FREAD_DUAL",
+          "bits": "14",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This bit is used to enable two-line data reads in QSPI mode. (R/W)"
+        },
+        {
+          "name": "SPI_FASTRD_MODE",
+          "bits": "13",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "Reserved."
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:27",
+        "22",
+        "19:15",
+        "12:0"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "SPI_CTRL2_REG",
+      "description": "Timing configuration",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43014",
+        "SPI1": "0x3FF42014",
+        "SPI2": "0x3FF64014",
+        "SPI3": "0x3FF65014"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x00 0x0 0x0 0x0 0x0 0x0 0x00 0x00 0x01 0x01",
+      "fields": [
+        {
+          "name": "SPI_CS_DELAY_NUM",
+          "bits": "31:28",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "Reserved."
+        },
+        {
+          "name": "SPI_CS_DELAY_MODE",
+          "bits": "27:26",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "Reserved."
+        },
+        {
+          "name": "SPI_MOSI_DELAY_NUM",
+          "bits": "25:23",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "It is used to configure the number of system clock cycles by which the MOSI signals are delayed. (R/W)"
+        },
+        {
+          "name": "SPI_MOSI_DELAY_MODE",
+          "bits": "22:21",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register field determines the way the MOSI signals are delayed by SPI clock. (R/W) After being delayed by SPI_MOSI_DELAY_NUM system clocks, the MOSI signals will then be delayed by the configuration of SPI_MOSI_DELAY_MODE, specifically: 0: no delay. 1: if SPI_CK_OUT_EDGE or SPI_CK_I_EDGE is set, the MOSI signals are delayed by half a cycle, otherwise they are delayed by one cycle. 2: if SPI_CK_OUT_EDGE or SPI_CK_I_EDGE is set, the MOSI signals are delayed by one cycle, otherwise they are delayed by half a cycle. 3: the MOSI signals are delayed one cycle."
+        },
+        {
+          "name": "SPI_MISO_DELAY_NUM",
+          "bits": "20:18",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "It is used to configure the number of system clock cycles by which the MISO signals are delayed. (R/W)"
+        },
+        {
+          "name": "SPI_MISO_DELAY_MODE",
+          "bits": "17:16",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register field determines the way MISO signals are delayed by SPI clock. (R/W) After being delayed by SPI_MISO_DELAY_NUM system clock, the MISO signals will then be de- layed by the configuration of SPI_MISO_DELAY_MODE, specifically: 0: no delay. 1: if SPI_CK_OUT_EDGE or SPI_CK_I_EDGE is set, the MISO signals are delayed by half a cycle, otherwise they are delayed by one cycle. 2: if SPI_CK_OUT_EDGE or SPI_CK_I_EDGE is set, the MISO signals are delayed by one cycle, otherwise they are delayed by half a cycle. 3: the MISO signals are delayed by one cycle."
+        },
+        {
+          "name": "SPI_HOLD_TIME",
+          "bits": "7:4",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The number of SPI clock cycles by which CS pin signals are delayed. It is only valid when SPI_CS_HOLD is set to 1. (R/W)"
+        },
+        {
+          "name": "SPI_SETUP_TIME",
+          "bits": "3:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "It is to configure the time between the CS signal active edge and the first SPI clock edge. It is only valid in half-duplex mode or QSPI mode and when SPI_CS_SETUP is set to 1. (R/W) Espressif Systems                                                                            369                                           ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "11:12"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "SPI_CLOCK_REG",
+      "description": "Clock configuration",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43018",
+        "SPI1": "0x3FF42018",
+        "SPI2": "0x3FF64018",
+        "SPI3": "0x3FF65018"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0x03 0x01 0x03",
+      "fields": [
+        {
+          "name": "SPI_CLK_EQU_SYSCLK",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "In master mode, when this bit is set to 1, SPI output clock is equal to system clock; when set to 0, SPI output clock is divided from system clock. In slave mode, it should be set to 0. (R/W)"
+        },
+        {
+          "name": "SPI_CLKDIV_PRE",
+          "bits": "30:18",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "In master mode, it is used to configure the pre-divider value for SPI output clock. It is only valid when SPI_CLK_EQU_SYSCLK is 0. In slave mode, it should be set to 0. (R/W)"
+        },
+        {
+          "name": "SPI_CLKCNT_N",
+          "bits": "17:12",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "In master mode, it is used to configure the divider for SPI output clock. It is only valid when SPI_CLK_EQU_SYSCLK is 0. In slave mode, it should be set to 0. (R/W)"
+        },
+        {
+          "name": "SPI_CLKCNT_H",
+          "bits": "11:6",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "In master mode, SPI_CLKCNT_H = \u230a SPI_CLKCNT_N+1 2       \u20131\u230b.                                   It is only valid when"
+        },
+        {
+          "name": "SPI_CLK_EQU_SYSCLK",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "R/W",
+          "description": "is 0. In slave mode, it should be set to 0. (R/W)"
+        },
+        {
+          "name": "SPI_CLKCNT_L",
+          "bits": "5:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "In master mode,                             it is equal to SPI_CLKCNT_N. It is only valid when"
+        },
+        {
+          "name": "SPI_CLK_EQU_SYSCLK",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "R/W",
+          "description": "is 0. In slave mode, it should be set to 0. (R/W) Espressif Systems                                                          370                                  ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                                     GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_PIN_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43034",
+        "SPI1": "0x3FF42034",
+        "SPI2": "0x3FF64034",
+        "SPI3": "0x3FF65034"
+      },
+      "reset_value": "0x000000006",
+      "fields": [
+        {
+          "name": "SPI_CS_KEEP_ACTIVE",
+          "bits": "30",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This bit is only used in master mode where when it is set, the CS signal will keep active. (R/W)"
+        },
+        {
+          "name": "SPI_CK_IDLE_EDGE",
+          "bits": "29",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This bit is only used in master mode to configure the logicl level of SPI output clock in idle state. (R/W) 1: the spi_clk line keeps high when idle; 0: the spi_clk line keeps low when idle."
+        },
+        {
+          "name": "SPI_MASTER_CK_SEL",
+          "bits": "13:11",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "Reserved."
+        },
+        {
+          "name": "SPI_MASTER_CS_POL",
+          "bits": "8:6",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "Reserved."
+        },
+        {
+          "name": "SPI_CK_DIS",
+          "bits": "5",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "Reserved."
+        },
+        {
+          "name": "SPI_CS2_DIS",
+          "bits": "2",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This bit enables the SPI CS2 signal. 1: disables CS2; 0: enables CS2. (R/W)"
+        },
+        {
+          "name": "SPI_CS1_DIS",
+          "bits": "1",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This bit enables the SPI CS1 signal. 1: disables CS1; 0: enables CS1. (R/W)"
+        },
+        {
+          "name": "SPI_CS0_DIS",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This bit enables the SPI CS0 signal. 1: disables CS0; 0: enables CS0. (R/W) Espressif Systems                                                              374                                                      ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                                  GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31",
+        "28:14",
+        "10:9",
+        "4:3"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "SPI_SLAVE_REG",
+      "description": "uration and interrupt",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43038",
+        "SPI1": "0x3FF42038",
+        "SPI2": "0x3FF64038",
+        "SPI3": "0x3FF65038"
+      },
+      "reset_value": "not specified in extracted text",
+      "fields": [
+        {
+          "name": "SPI_SLV_WR_BUF_DONE",
+          "bits": "1",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The raw interrupt status bit for the SPI_SLV_WR_BUF_INT interrupt. It is set by hardware and cleared by software, and only applicable to slave half-duplex mode. (R/W)"
+        },
+        {
+          "name": "SPI_SLV_RD_BUF_DONE",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The raw interrupt status bit for the SPI_SLV_RD_BUF_INT interrupt. It is set by hardware and cleared by software, and only applicable to slave half-duplex mode. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "16:12"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "SPI_SLAVE1_REG",
+      "description": "Slave data bit",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF4303C",
+        "SPI1": "0x3FF4203C",
+        "SPI2": "0x3FF6403C",
+        "SPI3": "0x3FF6503C"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0x00 0x00 0 0 0 0",
+      "fields": [
+        {
+          "name": "SPI_SLV_STATUS_BITLEN",
+          "bits": "31:27",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "It is only used in slave half-duplex mode to configure the length of the master writing into the status register. (R/W)"
+        },
+        {
+          "name": "SPI_SLV_STATUS_FAST_EN",
+          "bits": "26",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "Reserved."
+        },
+        {
+          "name": "SPI_SLV_STATUS_READBACK",
+          "bits": "25",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "Reserved."
+        },
+        {
+          "name": "SPI_SLV_RD_ADDR_BITLEN",
+          "bits": "15:10",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "It indicates the address length in bits minus one for a slave-read op- eration. It is only valid in slave half-duplex mode. (R/W)"
+        },
+        {
+          "name": "SPI_SLV_WR_ADDR_BITLEN",
+          "bits": "9:4",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "It indicates the address length in bits minus one for a slave-write op- eration. It is only valid in slave half-duplex mode. (R/W)"
+        },
+        {
+          "name": "SPI_SLV_WRSTA_DUMMY_EN",
+          "bits": "3",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "In slave mode, this bit enables the dummy phase for write-status operations. It is only valid in slave half-duplex mode.(R/W)"
+        },
+        {
+          "name": "SPI_SLV_RDSTA_DUMMY_EN",
+          "bits": "2",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "In slave mode, this bit enables the dummy phase for read-status op- erations. It is only valid in slave half-duplex mode. (R/W)"
+        },
+        {
+          "name": "SPI_SLV_WRBUF_DUMMY_EN",
+          "bits": "1",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "In slave mode, this bit enables the dummy phase for write-buffer operations. It is only valid in slave half-duplex mode. (R/W)"
+        },
+        {
+          "name": "SPI_SLV_RDBUF_DUMMY_EN",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "In slave mode, this bit enables the dummy phase for read-buffer op- erations. It is only valid in slave half-duplex mode. (R/W) Espressif Systems                                                           376                                       ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                                          GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "24:16"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "SPI_SLAVE2_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43040",
+        "SPI1": "0x3FF42040",
+        "SPI2": "0x3FF64040",
+        "SPI3": "0x3FF65040"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0 0 0 0 0 0 0 0x000 0x000 0x000",
+      "fields": [
+        {
+          "name": "SPI_SLV_WRBUF_DUMMY_CYCLELEN",
+          "bits": "31:24",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "It indicates the number of SPI clock cycles minus one for the dummy phase for write-data operations. It is only valid when SPI_SLV_WRBUF_DUMMY_EN is set to 1 in slave half-duplex mode. (R/W)"
+        },
+        {
+          "name": "SPI_SLV_RDBUF_DUMMY_CYCLELEN",
+          "bits": "23:16",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "It indicates the number of SPI clock cycles minus one for the dummy phase for read-data operations. It is only valid when SPI_SLV_RDBUF_DUMMY_EN is set to 1 in slave half-duplex mode. (R/W)"
+        },
+        {
+          "name": "SPI_SLV_WRSTA_DUMMY_CYCLELEN",
+          "bits": "15:8",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "It indicates the number of SPI clock cycles minus one for the dummy phase for write-status register operations.                                                      It is only valid when"
+        },
+        {
+          "name": "SPI_SLV_WRSTA_DUMMY_EN",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "R/W",
+          "description": "is set to 1 in slave half-duplex mode. (R/W)"
+        },
+        {
+          "name": "SPI_SLV_RDSTA_DUMMY_CYCLELEN",
+          "bits": "7:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "It indicates the number of SPI clock cycles minus one for the dummy phase for read-status register operations.                                                       It is only valid when"
+        },
+        {
+          "name": "SPI_SLV_RDSTA_DUMMY_EN",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "R/W",
+          "description": "is set to 1 in slave half-duplex mode. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_SLV_WR_STATUS_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43030",
+        "SPI1": "0x3FF42030",
+        "SPI2": "0x3FF64030",
+        "SPI3": "0x3FF65030"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_SLV_WR_STATUS_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "In the slave mode this register is the status register for the master to write the slave. In the master mode, if the address length is bigger than 32 bits, SPI_ADDR_REG stores the higher 32 bits of address value, and this register stores the rest lower part of address value. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_SLV_WRBUF_DLEN_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43048",
+        "SPI1": "0x3FF42048",
+        "SPI2": "0x3FF64048",
+        "SPI3": "0x3FF65048"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0 0 0 0 0 0 0 0x0000000",
+      "fields": [
+        {
+          "name": "SPI_SLV_WRBUF_DBITLEN",
+          "bits": "23:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "It indicates the length of written data minus one, in multiples of one bit. It is only valid in slave half-duplex mode. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:24"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "SPI_SLV_RDBUF_DLEN_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF4304C",
+        "SPI1": "0x3FF4204C",
+        "SPI2": "0x3FF6404C",
+        "SPI3": "0x3FF6504C"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0 0 0 0 0 0 0 0x0000000",
+      "fields": [
+        {
+          "name": "SPI_SLV_RDBUF_DBITLEN",
+          "bits": "23:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "It indicates the length of read data minus one, in multiples of one bit. It is only valid in slave half-duplex mode. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:24"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "SPI_SLV_RD_BIT_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43064",
+        "SPI1": "0x3FF42064",
+        "SPI2": "0x3FF64064",
+        "SPI3": "0x3FF65064"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_SLV_RDATA_BIT",
+          "bits": "23:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "It indicates the bit length of data the master reads from the slave, minus one. It is only valid in slave half-duplex mode. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:24"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "SPI_CMD_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43000",
+        "SPI1": "0x3FF42000",
+        "SPI2": "0x3FF64000",
+        "SPI3": "0x3FF65000"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_USR",
+          "bits": "18",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "An SPI operation will be triggered when this bit is set. The bit will be cleared once the operation is done. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:19",
+        "17:0"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "SPI_ADDR_REG",
+      "description": "Address data",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43004",
+        "SPI1": "0x3FF42004",
+        "SPI2": "0x3FF64004",
+        "SPI3": "0x3FF65004"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0x000000000",
+      "fields": [
+        {
+          "name": "SPI_ADDR_REG",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": null,
+          "description": "It stores the transmitting address when master is in half-duplex mode or QSPI mode. If the address length is bigger than 32 bits, this register stores the higher 32 bits of address value,"
+        },
+        {
+          "name": "SPI_SLV_WR_STATUS_REG",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": null,
+          "description": "stores the rest lower part of address value. If the address length is smaller than 33 bits, this register stores all the address value. The register is in valid only when"
+        },
+        {
+          "name": "SPI_USR_ADDR",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "R/W",
+          "description": "bit is set to 1. (R/W) Espressif Systems                                                            366                                       ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                                           GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:0"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "SPI_USER_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF4301C",
+        "SPI1": "0x3FF4201C",
+        "SPI2": "0x3FF6401C",
+        "SPI3": "0x3FF6501C"
+      },
+      "reset_value": "not specified in extracted text",
+      "fields": [
+        {
+          "name": "SPI_CS_SETUP",
+          "bits": "5",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Setting this bit enables a delay between CS active edge and the first clock edge, in multiples of one SPI clock cycle. In full-duplex mode and QSPI mode, setting this bit results in (SPI_SETUP_TIME + 1.5) SPI clock cycles delay. In full-duplex mode, there will be 1.5 SPI clock cycles delay for mode0 and mode2, and 1 SPI clock cycle delay for mode1 and mode3. (R/W)"
+        },
+        {
+          "name": "SPI_CS_HOLD",
+          "bits": "4",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Setting this bit enables a delay between the end of a transmission and CS being inactive, as specified in SPI_HOLD_TIME. (R/W)"
+        },
+        {
+          "name": "SPI_DOUTDIN",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set the bit to enable full-duplex communication. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "23:17",
+        "9:8",
+        "3:1"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "SPI_USER1_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43020",
+        "SPI1": "0x3FF42020",
+        "SPI2": "0x3FF64020",
+        "SPI3": "0x3FF65020"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 23 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 7",
+      "fields": [
+        {
+          "name": "SPI_USR_ADDR_BITLEN",
+          "bits": "31:26",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "It indicates the bit length of the transmitted address minus one in half- duplex mode and QSPI mode, in multiples of one bit. It is only valid when SPI_USR_ADDR is set to 1. (RO)"
+        },
+        {
+          "name": "SPI_USR_DUMMY_CYCLELEN",
+          "bits": "7:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "It indicates the number of SPI clock cycles for the dummy phase minus one in SPI half-duplex mode and QSPI mode. It is only valid when SPI_USR_DUMMY is set to 1. (R/W) Espressif Systems                                                         372                                   ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                                                    GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "25:8"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "SPI_USER2_REG",
+      "description": "and value configura-",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43024",
+        "SPI1": "0x3FF42024",
+        "SPI2": "0x3FF64024",
+        "SPI3": "0x3FF65024"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 7 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0",
+      "fields": [
+        {
+          "name": "SPI_USR_COMMAND_BITLEN",
+          "bits": "31:28",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "It indicates the bit length of the command phase minus one in SPI half-duplex mode and QSPI mode. It is only valid when SPI_USR_COMMAND is set to 1. (R/W)"
+        },
+        {
+          "name": "SPI_USR_COMMAND_VALUE",
+          "bits": "15:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "It indicates the value of the command to be transmitted in SPI half- duplex mode and QSPI mode. It is only valid when SPI_USR_COMMAND is set to 1. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "27:16"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "SPI_MOSI_DLEN_REG",
+      "description": "MOSI length",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43028",
+        "SPI1": "0x3FF42028",
+        "SPI2": "0x3FF64028",
+        "SPI3": "0x3FF65028"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0 0 0 0 0 0 0 0x0000000",
+      "fields": [
+        {
+          "name": "SPI_USR_MOSI_DBITLEN",
+          "bits": "23:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "It indicates the length of MOSI data minus one, in multiples of one bit. It is only valid when SPI_USR_MOSI is set to 1 in master mode. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:24"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "SPI_W0_REG",
+      "description": "SPI data register 0",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43080",
+        "SPI1": "0x3FF42080",
+        "SPI2": "0x3FF64080",
+        "SPI3": "0x3FF65080"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_Wn_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Data buffer. (R/W) Espressif Systems                                                            378                                              ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                          GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_W1_REG",
+      "description": "SPI data register 1",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43084",
+        "SPI1": "0x3FF42084",
+        "SPI2": "0x3FF64084",
+        "SPI3": "0x3FF65084"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_Wn_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Data buffer. (R/W) Espressif Systems                                                            378                                              ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                          GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_W2_REG",
+      "description": "SPI data register 2",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43088",
+        "SPI1": "0x3FF42088",
+        "SPI2": "0x3FF64088",
+        "SPI3": "0x3FF65088"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_Wn_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Data buffer. (R/W) Espressif Systems                                                            378                                              ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                          GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_W3_REG",
+      "description": "SPI data register 3",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF4308C",
+        "SPI1": "0x3FF4208C",
+        "SPI2": "0x3FF6408C",
+        "SPI3": "0x3FF6508C"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_Wn_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Data buffer. (R/W) Espressif Systems                                                            378                                              ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                          GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_W4_REG",
+      "description": "SPI data register 4",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43090",
+        "SPI1": "0x3FF42090",
+        "SPI2": "0x3FF64090",
+        "SPI3": "0x3FF65090"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_Wn_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Data buffer. (R/W) Espressif Systems                                                            378                                              ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                          GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_W5_REG",
+      "description": "SPI data register 5",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43094",
+        "SPI1": "0x3FF42094",
+        "SPI2": "0x3FF64094",
+        "SPI3": "0x3FF65094"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_Wn_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Data buffer. (R/W) Espressif Systems                                                            378                                              ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                          GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_W6_REG",
+      "description": "SPI data register 6",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43098",
+        "SPI1": "0x3FF42098",
+        "SPI2": "0x3FF64098",
+        "SPI3": "0x3FF65098"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_Wn_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Data buffer. (R/W) Espressif Systems                                                            378                                              ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                          GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_W7_REG",
+      "description": "SPI data register 7",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF4309C",
+        "SPI1": "0x3FF4209C",
+        "SPI2": "0x3FF6409C",
+        "SPI3": "0x3FF6509C"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_Wn_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Data buffer. (R/W) Espressif Systems                                                            378                                              ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                          GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_W8_REG",
+      "description": "SPI data register 8",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF430A0",
+        "SPI1": "0x3FF420A0",
+        "SPI2": "0x3FF640A0",
+        "SPI3": "0x3FF650A0"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_Wn_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Data buffer. (R/W) Espressif Systems                                                            378                                              ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                          GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_W9_REG",
+      "description": "SPI data register 9",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF430A4",
+        "SPI1": "0x3FF420A4",
+        "SPI2": "0x3FF640A4",
+        "SPI3": "0x3FF650A4"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_Wn_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Data buffer. (R/W) Espressif Systems                                                            378                                              ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                          GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_W10_REG",
+      "description": "SPI data register 10",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF430A8",
+        "SPI1": "0x3FF420A8",
+        "SPI2": "0x3FF640A8",
+        "SPI3": "0x3FF650A8"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_Wn_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Data buffer. (R/W) Espressif Systems                                                            378                                              ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                          GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_W11_REG",
+      "description": "SPI data register 11",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF430AC",
+        "SPI1": "0x3FF420AC",
+        "SPI2": "0x3FF640AC",
+        "SPI3": "0x3FF650AC"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_Wn_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Data buffer. (R/W) Espressif Systems                                                            378                                              ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                          GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_W12_REG",
+      "description": "SPI data register 12",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF430B0",
+        "SPI1": "0x3FF420B0",
+        "SPI2": "0x3FF640B0",
+        "SPI3": "0x3FF650B0"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_Wn_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Data buffer. (R/W) Espressif Systems                                                            378                                              ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                          GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_W13_REG",
+      "description": "SPI data register 13",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF430B4",
+        "SPI1": "0x3FF420B4",
+        "SPI2": "0x3FF640B4",
+        "SPI3": "0x3FF650B4"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_Wn_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Data buffer. (R/W) Espressif Systems                                                            378                                              ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                          GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_W14_REG",
+      "description": "SPI data register 14",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF430B8",
+        "SPI1": "0x3FF420B8",
+        "SPI2": "0x3FF640B8",
+        "SPI3": "0x3FF650B8"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_Wn_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Data buffer. (R/W) Espressif Systems                                                            378                                              ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                          GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_W15_REG",
+      "description": "SPI data register 15",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF430BC",
+        "SPI1": "0x3FF420BC",
+        "SPI2": "0x3FF640BC",
+        "SPI3": "0x3FF650BC"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_Wn_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "R/W",
+          "description": "Data buffer. (R/W) Espressif Systems                                                            378                                              ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                          GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_DMA_CONF_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43100",
+        "SPI1": "0x3FF42100",
+        "SPI2": "0x3FF64100",
+        "SPI3": "0x3FF65100"
+      },
+      "reset_value": "0x00000200",
+      "fields": [
+        {
+          "name": "SPI_DMA_CONTINUE",
+          "bits": "16",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This bit enables SPI DMA continuous data TX/RX mode. (R/W)"
+        },
+        {
+          "name": "SPI_DMA_TX_STOP",
+          "bits": "15",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When in continuous TX/RX mode, setting this bit stops sending data. (R/W)"
+        },
+        {
+          "name": "SPI_DMA_RX_STOP",
+          "bits": "14",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When in continuous TX/RX mode, setting this bit stops receiving data. (R/W)"
+        },
+        {
+          "name": "SPI_OUT_DATA_BURST_EN",
+          "bits": "12",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "SPI DMA reads data from memory in burst mode. (R/W)"
+        },
+        {
+          "name": "SPI_INDSCR_BURST_EN",
+          "bits": "11",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "SPI DMA reads inlink descriptor in burst mode. (R/W)"
+        },
+        {
+          "name": "SPI_OUTDSCR_BURST_EN",
+          "bits": "10",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "SPI DMA reads outlink descriptor in burst mode. (R/W)"
+        },
+        {
+          "name": "SPI_OUT_EOF_MODE",
+          "bits": "9",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "DMA out-EOF-flag generation mode. (R/W) 1: out-EOF-flag is generated when DMA has popped all data from the FIFO; 0: out-EOF-flag is generated when DMA has pushed all data to the FIFO."
+        },
+        {
+          "name": "SPI_AHBM_RST",
+          "bits": "5",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "reset SPI DMA AHB master. (R/W)"
+        },
+        {
+          "name": "SPI_AHBM_FIFO_RST",
+          "bits": "4",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This bit is used to reset SPI DMA AHB master FIFO pointer. (R/W)"
+        },
+        {
+          "name": "SPI_OUT_RST",
+          "bits": "3",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The bit is used to reset DMA out-FSM and out-data FIFO pointer. (R/W)"
+        },
+        {
+          "name": "SPI_IN_RST",
+          "bits": "2",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The bit is used to reset DMA in-DSM and in-data FIFO pointer. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:17",
+        "13",
+        "8:6",
+        "1:0"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "SPI_DMA_OUT_LINK_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43104",
+        "SPI1": "0x3FF42104",
+        "SPI2": "0x3FF64104",
+        "SPI3": "0x3FF65104"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0 0 0 0 0 0 0 0 0 0 0 0x000000",
+      "fields": [
+        {
+          "name": "SPI_OUTLINK_RESTART",
+          "bits": "30",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set the bit to add new outlink descriptors. (R/W)"
+        },
+        {
+          "name": "SPI_OUTLINK_START",
+          "bits": "29",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set the bit to start to use outlink descriptor. (R/W)"
+        },
+        {
+          "name": "SPI_OUTLINK_STOP",
+          "bits": "28",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set the bit to stop to use outlink descriptor. (R/W)"
+        },
+        {
+          "name": "SPI_OUTLINK_ADDR",
+          "bits": "19:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The address of the first outlink descriptor. (R/W) Espressif Systems                                                                  380                                               ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                                              GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31",
+        "27:20"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "SPI_DMA_IN_LINK_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43108",
+        "SPI1": "0x3FF42108",
+        "SPI2": "0x3FF64108",
+        "SPI3": "0x3FF65108"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0 0 0 0 0 0 0 0 0 0 0 0x000000",
+      "fields": [
+        {
+          "name": "SPI_INLINK_RESTART",
+          "bits": "30",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set the bit to add new inlink descriptors. (R/W)"
+        },
+        {
+          "name": "SPI_INLINK_START",
+          "bits": "29",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set the bit to start to use inlink descriptor. (R/W)"
+        },
+        {
+          "name": "SPI_INLINK_STOP",
+          "bits": "28",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set the bit to stop to use inlink descriptor. (R/W)"
+        },
+        {
+          "name": "SPI_INLINK_AUTO_RET",
+          "bits": "20",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "when the bit is set, inlink descriptor jumps to the next descriptor when a packet is invalid. (R/W)"
+        },
+        {
+          "name": "SPI_INLINK_ADDR",
+          "bits": "19:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The address of the first inlink descriptor. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31",
+        "27:21"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "SPI_DMA_STATUS_REG",
+      "description": "DMA status",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "SPI0": "0x3FF4310C",
+        "SPI1": "0x3FF4210C",
+        "SPI2": "0x3FF6410C",
+        "SPI3": "0x3FF6510C"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_DMA_TX_EN",
+          "bits": "1",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "SPI DMA write-data status bit. (RO)"
+        },
+        {
+          "name": "SPI_DMA_RX_EN",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "SPI DMA read-data status bit. (RO) Espressif Systems                                                                      381                                              ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                               GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:2"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "SPI_IN_ERR_EOF_DES_ADDR_REG",
+      "description": "where an error oc-",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43120",
+        "SPI1": "0x3FF42120",
+        "SPI2": "0x3FF64120",
+        "SPI3": "0x3FF65120"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_IN_ERR_EOF_DES_ADDR_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "RO",
+          "description": "The inlink descriptor address when SPI DMA encountered an error in receiving data. (RO)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_IN_SUC_EOF_DES_ADDR_REG",
+      "description": "",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43124",
+        "SPI1": "0x3FF42124",
+        "SPI2": "0x3FF64124",
+        "SPI3": "0x3FF65124"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_IN_SUC_EOF_DES_ADDR_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "RO",
+          "description": "The last inlink descriptor address when SPI DMA encountered EOF. (RO) Espressif Systems                                                      385                                       ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                   GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_INLINK_DSCR_REG",
+      "description": "",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43128",
+        "SPI1": "0x3FF42128",
+        "SPI2": "0x3FF64128",
+        "SPI3": "0x3FF65128"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_INLINK_DSCR_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "RO",
+          "description": "The address of the current inlink descriptor. (RO)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_INLINK_DSCR_BF0_REG",
+      "description": "",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "SPI0": "0x3FF4312C",
+        "SPI1": "0x3FF4212C",
+        "SPI2": "0x3FF6412C",
+        "SPI3": "0x3FF6512C"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_INLINK_DSCR_BF0_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "RO",
+          "description": "The address of the next inlink descriptor. (RO)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_INLINK_DSCR_BF1_REG",
+      "description": "",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43130",
+        "SPI1": "0x3FF42130",
+        "SPI2": "0x3FF64130",
+        "SPI3": "0x3FF65130"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_INLINK_DSCR_BF1_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "RO",
+          "description": "The address of the next inlink data buffer. (RO)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_OUT_EOF_BFR_DES_ADDR_REG",
+      "description": "dress where EOF oc-",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43134",
+        "SPI1": "0x3FF42134",
+        "SPI2": "0x3FF64134",
+        "SPI3": "0x3FF65134"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_OUT_EOF_BFR_DES_ADDR_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "RO",
+          "description": "The buffer address corresponding to the outlink descriptor that produces EOF. (RO)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_OUT_EOF_DES_ADDR_REG",
+      "description": "",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43138",
+        "SPI1": "0x3FF42138",
+        "SPI2": "0x3FF64138",
+        "SPI3": "0x3FF65138"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_OUT_EOF_DES_ADDR_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "RO",
+          "description": "The last outlink descriptor address when SPI DMA encountered EOF. (RO) Espressif Systems                                                     386                                     ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                           GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_OUTLINK_DSCR_REG",
+      "description": "",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "SPI0": "0x3FF4313C",
+        "SPI1": "0x3FF4213C",
+        "SPI2": "0x3FF6413C",
+        "SPI3": "0x3FF6513C"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_OUTLINK_DSCR_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "RO",
+          "description": "The address of the current outlink descriptor. (RO)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_OUTLINK_DSCR_BF0_REG",
+      "description": "",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43140",
+        "SPI1": "0x3FF42140",
+        "SPI2": "0x3FF64140",
+        "SPI3": "0x3FF65140"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_OUTLINK_DSCR_BF0_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "RO",
+          "description": "The address of the next outlink descriptor. (RO)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_OUTLINK_DSCR_BF1_REG",
+      "description": "",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43144",
+        "SPI1": "0x3FF42144",
+        "SPI2": "0x3FF64144",
+        "SPI3": "0x3FF65144"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_OUTLINK_DSCR_BF1_REG",
+          "bits": "31:0",
+          "bit_confidence": "high (single field spans the whole diagram segment; no separate label needed)",
+          "access": "RO",
+          "description": "The address of the next outlink data buffer. (RO)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [],
+      "reserved_bits_note": "No reserved bits - all 32 bits are covered by named field(s) above."
+    },
+    {
+      "name": "SPI_DMA_RSTATUS_REG",
+      "description": "",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43148",
+        "SPI1": "0x3FF42148",
+        "SPI2": "0x3FF64148",
+        "SPI3": "0x3FF65148"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "TX_FIFO_EMPTY",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The SPI DMA TX FIFO is empty. (RO)"
+        },
+        {
+          "name": "TX_FIFO_FULL",
+          "bits": "30",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The SPI DMA TX FIFO is full. (RO)"
+        },
+        {
+          "name": "TX_DES_ADDRESS",
+          "bits": "19:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The LSB of the SPI DMA outlink descriptor address. (RO) Espressif Systems                                                           387                                       ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                             GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "29:20"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "SPI_DMA_TSTATUS_REG",
+      "description": "",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "SPI0": "0x3FF4314C",
+        "SPI1": "0x3FF4214C",
+        "SPI2": "0x3FF6414C",
+        "SPI3": "0x3FF6514C"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "RX_FIFO_EMPTY",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The SPI DMA RX FIFO is empty. (RO)"
+        },
+        {
+          "name": "RX_FIFO_FULL",
+          "bits": "30",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The SPI DMA RX FIFO is full. (RO)"
+        },
+        {
+          "name": "RX_DES_ADDRESS",
+          "bits": "19:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The LSB of the SPI DMA inlink descriptor address. (RO) Espressif Systems                                                         388                                           ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 21 I2C Controller (I2C)                                                                           GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "29:20"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "SPI_DMA_INT_RAW_REG",
+      "description": "Raw interrupt status",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43114",
+        "SPI1": "0x3FF42114",
+        "SPI2": "0x3FF64114",
+        "SPI3": "0x3FF65114"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_OUT_TOTAL_EOF_INT_RAW",
+          "bits": "8",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The raw interrupt status bit for the SPI_OUT_TOTAL_EOF_INT inter- rupt. (RO)"
+        },
+        {
+          "name": "SPI_OUT_EOF_INT_RAW",
+          "bits": "7",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The raw interrupt status bit for the SPI_OUT_EOF_INT interrupt. (RO)"
+        },
+        {
+          "name": "SPI_OUT_DONE_INT_RAW",
+          "bits": "6",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The raw interrupt status bit for the SPI_OUT_DONE_INT interrupt. (RO)"
+        },
+        {
+          "name": "SPI_IN_SUC_EOF_INT_RAW",
+          "bits": "5",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The raw interrupt status bit for the SPI_IN_SUC_EOF_INT interrupt. (RO)"
+        },
+        {
+          "name": "SPI_IN_ERR_EOF_INT_RAW",
+          "bits": "4",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The raw interrupt status bit for the SPI_IN_ERR_EOF_INT interrupt. (RO)"
+        },
+        {
+          "name": "SPI_IN_DONE_INT_RAW",
+          "bits": "3",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The raw interrupt status bit for the SPI_IN_DONE_INT interrupt. (RO)"
+        },
+        {
+          "name": "SPI_INLINK_DSCR_ERROR_INT_RAW",
+          "bits": "2",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "The                              raw           interrupt        status           bit       for       the"
+        },
+        {
+          "name": "SPI_INLINK_DSCR_ERROR_INT",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "RO",
+          "description": "interrupt. (RO)"
+        },
+        {
+          "name": "SPI_OUTLINK_DSCR_ERROR_INT_RAW",
+          "bits": "1",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "The                                 raw        interrupt        status          bit       for       the"
+        },
+        {
+          "name": "SPI_OUTLINK_DSCR_ERROR_INT",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "RO",
+          "description": "interrupt. (RO)"
+        },
+        {
+          "name": "SPI_INLINK_DSCR_EMPTY_INT_RAW",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "The                              raw           interrupt        status           bit       for       the"
+        },
+        {
+          "name": "SPI_INLINK_DSCR_EMPTY_INT",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "RO",
+          "description": "interrupt. (RO) Espressif Systems                                                      383                                         ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                              GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:9"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "SPI_DMA_INT_ST_REG",
+      "description": "",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43118",
+        "SPI1": "0x3FF42118",
+        "SPI2": "0x3FF64118",
+        "SPI3": "0x3FF65118"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_OUT_TOTAL_EOF_INT_ST",
+          "bits": "8",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The masked interrupt status bit for the SPI_OUT_TOTAL_EOF_INT in- terrupt. (RO)"
+        },
+        {
+          "name": "SPI_OUT_EOF_INT_ST",
+          "bits": "7",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The masked interrupt status bit for the SPI_OUT_EOF_INT interrupt. (RO)"
+        },
+        {
+          "name": "SPI_OUT_DONE_INT_ST",
+          "bits": "6",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The masked interrupt status bit for the SPI_OUT_DONE_INT interrupt. (RO)"
+        },
+        {
+          "name": "SPI_IN_SUC_EOF_INT_ST",
+          "bits": "5",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The masked interrupt status bit for the SPI_IN_SUC_EOF_INT interrupt. (RO)"
+        },
+        {
+          "name": "SPI_IN_ERR_EOF_INT_ST",
+          "bits": "4",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The masked interrupt status bit for the SPI_IN_ERR_EOF_INT interrupt. (RO)"
+        },
+        {
+          "name": "SPI_IN_DONE_INT_ST",
+          "bits": "3",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The masked interrupt status bit for the SPI_IN_DONE_INT interrupt. (RO)"
+        },
+        {
+          "name": "SPI_INLINK_DSCR_ERROR_INT_ST",
+          "bits": "2",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "The                            masked            interrupt            status        bit       for       the"
+        },
+        {
+          "name": "SPI_INLINK_DSCR_ERROR_INT",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "RO",
+          "description": "interrupt. (RO)"
+        },
+        {
+          "name": "SPI_OUTLINK_DSCR_ERROR_INT_ST",
+          "bits": "1",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "The                               masked            interrupt         status       bit       for       the"
+        },
+        {
+          "name": "SPI_OUTLINK_DSCR_ERROR_INT",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "RO",
+          "description": "interrupt. (RO)"
+        },
+        {
+          "name": "SPI_INLINK_DSCR_EMPTY_INT_ST",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "The                            masked            interrupt         status           bit       for       the"
+        },
+        {
+          "name": "SPI_INLINK_DSCR_EMPTY_INT",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "RO",
+          "description": "interrupt. (RO) Espressif Systems                                                       384                                          ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                      GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:9"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "SPI_DMA_INT_ENA_REG",
+      "description": "Interrupt enable bits",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF43110",
+        "SPI1": "0x3FF42110",
+        "SPI2": "0x3FF64110",
+        "SPI3": "0x3FF65110"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_OUT_TOTAL_EOF_INT_ENA",
+          "bits": "8",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The interrupt enable bit for the SPI_OUT_TOTAL_EOF_INT interrupt. (R/W)"
+        },
+        {
+          "name": "SPI_OUT_EOF_INT_ENA",
+          "bits": "7",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The interrupt enable bit for the SPI_OUT_EOF_INT interrupt. (R/W)"
+        },
+        {
+          "name": "SPI_OUT_DONE_INT_ENA",
+          "bits": "6",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The interrupt enable bit for the SPI_OUT_DONE_INT interrupt. (R/W)"
+        },
+        {
+          "name": "SPI_IN_SUC_EOF_INT_ENA",
+          "bits": "5",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The interrupt enable bit for the SPI_IN_SUC_EOF_INT interrupt. (R/W)"
+        },
+        {
+          "name": "SPI_IN_ERR_EOF_INT_ENA",
+          "bits": "4",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The interrupt enable bit for the SPI_IN_ERR_EOF_INT interrupt. (R/W)"
+        },
+        {
+          "name": "SPI_IN_DONE_INT_ENA",
+          "bits": "3",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The interrupt enable bit for the SPI_IN_DONE_INT interrupt. (R/W)"
+        },
+        {
+          "name": "SPI_INLINK_DSCR_ERROR_INT_ENA",
+          "bits": "2",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "The                                 interrupt            enable                bit            for       the"
+        },
+        {
+          "name": "SPI_INLINK_DSCR_ERROR_INT",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "R/W",
+          "description": "interrupt. (R/W)"
+        },
+        {
+          "name": "SPI_OUTLINK_DSCR_ERROR_INT_ENA",
+          "bits": "1",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "The                                   interrupt             enable             bit           for       the"
+        },
+        {
+          "name": "SPI_OUTLINK_DSCR_ERROR_INT",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "R/W",
+          "description": "interrupt. (R/W)"
+        },
+        {
+          "name": "SPI_INLINK_DSCR_EMPTY_INT_ENA",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "The                                 interrupt            enable                bit            for       the"
+        },
+        {
+          "name": "SPI_INLINK_DSCR_EMPTY_INT",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "R/W",
+          "description": "interrupt. (R/W) Espressif Systems                                                        382                                           ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 20 SPI Controller (SPI)                                                                                                            GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:9"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "SPI_DMA_INT_CLR_REG",
+      "description": "Interrupt clear bits",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "SPI0": "0x3FF4311C",
+        "SPI1": "0x3FF4211C",
+        "SPI2": "0x3FF6411C",
+        "SPI3": "0x3FF6511C"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "SPI_OUT_TOTAL_EOF_INT_CLR",
+          "bits": "8",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set this bit to clear the SPI_OUT_TOTAL_EOF_INT interrupt. (R/W)"
+        },
+        {
+          "name": "SPI_OUT_EOF_INT_CLR",
+          "bits": "7",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set this bit to clear the SPI_OUT_EOF_INT interrupt. (R/W)"
+        },
+        {
+          "name": "SPI_OUT_DONE_INT_CLR",
+          "bits": "6",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set this bit to clear the SPI_OUT_DONE_INT interrupt. (R/W)"
+        },
+        {
+          "name": "SPI_IN_SUC_EOF_INT_CLR",
+          "bits": "5",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set this bit to clear the SPI_IN_SUC_EOF_INT interrupt. (R/W)"
+        },
+        {
+          "name": "SPI_IN_ERR_EOF_INT_CLR",
+          "bits": "4",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set this bit to clear the SPI_IN_ERR_EOF_INT interrupt. (R/W)"
+        },
+        {
+          "name": "SPI_IN_DONE_INT_CLR",
+          "bits": "3",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set this bit to clear the SPI_IN_DONE_INT interrupt. (R/W)"
+        },
+        {
+          "name": "SPI_INLINK_DSCR_ERROR_INT_CLR",
+          "bits": "2",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set this bit to clear the SPI_INLINK_DSCR_ERROR_INT inter- rupt. (R/W)"
+        },
+        {
+          "name": "SPI_OUTLINK_DSCR_ERROR_INT_CLR",
+          "bits": "1",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set this bit to clear the SPI_OUTLINK_DSCR_ERROR_INT interrupt. (R/W)"
+        },
+        {
+          "name": "SPI_INLINK_DSCR_EMPTY_INT_CLR",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set this bit to clear the SPI_INLINK_DSCR_EMPTY_INT inter- rupt. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:9"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    }
+  ],
+  "global_dependencies": [
+    "Clock gate: DPORT_SPI01_CLK_EN (SPI0+SPI1 shared bit), DPORT_SPI2_CLK_EN (SPI2/HSPI), DPORT_SPI3_CLK_EN (SPI3/VSPI) in DPORT_PERIP_CLK_EN_REG (0x3FF000C0).",
+    "DPORT_SPI_DMA_CLK_EN gates the shared SPI DMA engine used by SPI1-3 in DMA mode.",
+    "SPI0 and SPI1 are reserved for accessing external flash/PSRAM by the system and should generally not be reconfigured by application code; SPI2 (HSPI) and SPI3 (VSPI) are the general-purpose controllers.",
+    "SPI_CLOCK_REG must be configured to set the clock divider before SPI_CMD_REG.SPI_USR is set to start a transaction.",
+    "SPI pins must be routed through the GPIO Matrix or IO_MUX before physical signaling occurs (see Chapter 6).",
+    "BIT-POSITION VERIFICATION: a handful of fields in SPI_CLOCK_REG, SPI_SLAVE2_REG, SPI_ADDR_REG, and the SPI_DMA_INT_* registers could not be automatically matched to a diagram segment (flagged 'low' confidence) - these have more field-name repetition/overlap than other registers and should be checked against the cited PDF page directly before relying on their bit positions."
+  ]
+}

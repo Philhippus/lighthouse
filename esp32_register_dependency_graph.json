@@ -1,0 +1,221 @@
+{
+  "nodes": [
+    {
+      "id": "DPORT_PERIP_CLK_EN",
+      "label": "DPORT_PERIP_CLK_EN_REG\n(0x3FF000C0)",
+      "group": "clock_gate"
+    },
+    {
+      "id": "DPORT_PERIP_RST_EN",
+      "label": "DPORT_PERIP_RST_EN_REG\n(0x3FF000C4)",
+      "group": "clock_gate"
+    },
+    {
+      "id": "IO_MUX",
+      "label": "IO_MUX_<pin>_REG\n(MCU_SEL)",
+      "group": "routing"
+    },
+    {
+      "id": "GPIO_MATRIX_SEL",
+      "label": "GPIO_FUNCn_IN/OUT\n_SEL_CFG_REG",
+      "group": "routing"
+    },
+    {
+      "id": "GPIO_ENABLE",
+      "label": "GPIO_ENABLE_REG /\nGPIO_ENABLE1_REG",
+      "group": "gpio"
+    },
+    {
+      "id": "GPIO_OUT",
+      "label": "GPIO_OUT_REG /\nGPIO_OUT1_REG",
+      "group": "gpio"
+    },
+    {
+      "id": "GPIO_PINn",
+      "label": "GPIO_PINn_REG\n(INT_TYPE, INT_ENA)",
+      "group": "gpio"
+    },
+    {
+      "id": "GPIO_STATUS",
+      "label": "GPIO_STATUS_REG /\nACPU_INT / PCPU_INT",
+      "group": "gpio"
+    },
+    {
+      "id": "GPIO_PAD_DRIVER",
+      "label": "GPIO_PINn_REG\n.PAD_DRIVER (open-drain)",
+      "group": "gpio"
+    },
+    {
+      "id": "RTCIO_PINn",
+      "label": "RTCIO_RTC_GPIO_PINn_REG",
+      "group": "gpio"
+    },
+    {
+      "id": "UART_CLKDIV",
+      "label": "UART_CLKDIV_REG",
+      "group": "uart"
+    },
+    {
+      "id": "UART_CONF0",
+      "label": "UART_CONF0_REG",
+      "group": "uart"
+    },
+    {
+      "id": "UART_TXRX",
+      "label": "UART TX/RX\n(FIFO regs)",
+      "group": "uart"
+    },
+    {
+      "id": "SPI_CLOCK",
+      "label": "SPI_CLOCK_REG",
+      "group": "spi"
+    },
+    {
+      "id": "SPI_CMD",
+      "label": "SPI_CMD_REG\n(.USR)",
+      "group": "spi"
+    },
+    {
+      "id": "I2C_SCL_PERIOD",
+      "label": "I2C_SCL_LOW/HIGH\n_PERIOD_REG",
+      "group": "i2c"
+    },
+    {
+      "id": "I2C_COMD",
+      "label": "I2C_COMD0-15_REG",
+      "group": "i2c"
+    },
+    {
+      "id": "TIMG_CONFIG",
+      "label": "TIMGn_TxCONFIG_REG",
+      "group": "timg"
+    },
+    {
+      "id": "TIMG_COUNTER",
+      "label": "TIMGn_TxLO/HI_REG",
+      "group": "timg"
+    },
+    {
+      "id": "TIMG_WDTWPROTECT",
+      "label": "TIMGn_WDTWPROTECT_REG\n(write 0x50D83AA1)",
+      "group": "timg"
+    },
+    {
+      "id": "TIMG_WDTCONFIG",
+      "label": "TIMGn_WDTCONFIG0-5_REG\n/ WDTFEED_REG",
+      "group": "timg"
+    }
+  ],
+  "edges": [
+    {
+      "from": "DPORT_PERIP_CLK_EN",
+      "to": "UART_CLKDIV",
+      "note": "DPORT_UART*_CLK_EN bit + DPORT_UART_MEM_CLK_EN must be 1"
+    },
+    {
+      "from": "DPORT_PERIP_CLK_EN",
+      "to": "SPI_CLOCK",
+      "note": "DPORT_SPI01/2/3_CLK_EN bit must be 1"
+    },
+    {
+      "from": "DPORT_PERIP_CLK_EN",
+      "to": "I2C_SCL_PERIOD",
+      "note": "DPORT_I2C_EXT0/1_CLK_EN bit must be 1"
+    },
+    {
+      "from": "DPORT_PERIP_CLK_EN",
+      "to": "TIMG_CONFIG",
+      "note": "DPORT_TIMERGROUP(1)_CLK_EN bit must be 1"
+    },
+    {
+      "from": "DPORT_PERIP_RST_EN",
+      "to": "UART_CLKDIV",
+      "note": "matching reset bit must be de-asserted (0)"
+    },
+    {
+      "from": "DPORT_PERIP_RST_EN",
+      "to": "SPI_CLOCK",
+      "note": "matching reset bit must be de-asserted (0)"
+    },
+    {
+      "from": "DPORT_PERIP_RST_EN",
+      "to": "I2C_SCL_PERIOD",
+      "note": "matching reset bit must be de-asserted (0)"
+    },
+    {
+      "from": "DPORT_PERIP_RST_EN",
+      "to": "TIMG_CONFIG",
+      "note": "matching reset bit must be de-asserted (0)"
+    },
+    {
+      "from": "IO_MUX",
+      "to": "GPIO_ENABLE",
+      "note": "pad's MCU_SEL must select GPIO function first"
+    },
+    {
+      "from": "GPIO_MATRIX_SEL",
+      "to": "UART_TXRX",
+      "note": "UART pins must be routed through GPIO Matrix/IO_MUX"
+    },
+    {
+      "from": "GPIO_MATRIX_SEL",
+      "to": "SPI_CMD",
+      "note": "SPI pins must be routed through GPIO Matrix/IO_MUX"
+    },
+    {
+      "from": "GPIO_MATRIX_SEL",
+      "to": "I2C_COMD",
+      "note": "I2C SDA/SCL must be routed through GPIO Matrix"
+    },
+    {
+      "from": "GPIO_ENABLE",
+      "to": "GPIO_OUT",
+      "note": "pin must be marked output before OUT write has effect"
+    },
+    {
+      "from": "GPIO_PINn",
+      "to": "GPIO_STATUS",
+      "note": "INT_TYPE/INT_ENA must be set before status bits are meaningful"
+    },
+    {
+      "from": "GPIO_PAD_DRIVER",
+      "to": "I2C_COMD",
+      "note": "I2C pins should be configured open-drain before bus use"
+    },
+    {
+      "from": "GPIO_PINn",
+      "to": "RTCIO_PINn",
+      "note": "digital GPIO config coexists with / is superseded by RTCIO config for RTC-capable pins"
+    },
+    {
+      "from": "UART_CLKDIV",
+      "to": "UART_TXRX",
+      "note": "baud rate divisor must be set before data is sent/received correctly"
+    },
+    {
+      "from": "UART_CONF0",
+      "to": "UART_TXRX",
+      "note": "frame format (data/parity/stop bits) must be set first"
+    },
+    {
+      "from": "SPI_CLOCK",
+      "to": "SPI_CMD",
+      "note": "clock divider must be set before SPI_CMD.USR starts a transaction"
+    },
+    {
+      "from": "I2C_SCL_PERIOD",
+      "to": "I2C_COMD",
+      "note": "bus timing must be set before issuing command sequence"
+    },
+    {
+      "from": "TIMG_CONFIG",
+      "to": "TIMG_COUNTER",
+      "note": "enable+prescaler must be set before the 64-bit counter runs"
+    },
+    {
+      "from": "TIMG_WDTWPROTECT",
+      "to": "TIMG_WDTCONFIG",
+      "note": "must write unlock key 0x50D83AA1 before WDT config/feed registers accept writes"
+    }
+  ]
+}

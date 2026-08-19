@@ -1,0 +1,1548 @@
+{
+  "peripheral": "I2C",
+  "base_address": "I2C0: 0x3FF53000, I2C1: 0x3FF67000",
+  "source_page": "Chapter 21 I2C Controller (I2C), Section 21.4 Register Summary / 21.5 Registers, ESP32 TRM v5.7",
+  "registers": [
+    {
+      "name": "I2C_SLAVE_ADDR_REG",
+      "description": "Configures the I2C slave address",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53010",
+        "I2C1": "0x3FF67010"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_SLAVE_ADDR_10BIT_EN",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This field is used to enable the slave 10-bit addressing mode in master mode. (R/W)"
+        },
+        {
+          "name": "I2C_SLAVE_ADDR",
+          "bits": "14:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When configured as an I2C Slave, this field is used to configure the slave ad- dress. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "30:15"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_RXFIFO_ST_REG",
+      "description": "FIFO status register",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53014",
+        "I2C1": "0x3FF67014"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_TXFIFO_END_ADDR",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": null,
+          "description": "This is the offset address of the last sent data, as described in nonfifo_tx_thres register.                           The value refreshes when I2C_TX_SEND_EMPTY_INT or"
+        },
+        {
+          "name": "I2C_TRANS_COMPLETE_INT",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "RO",
+          "description": "interrupt is generated. (RO)"
+        },
+        {
+          "name": "I2C_TXFIFO_START_ADDR",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "RO",
+          "description": "This is the offset address of the first sent data, as described in non- fifo_tx_thres register. (RO)"
+        },
+        {
+          "name": "I2C_RXFIFO_END_ADDR",
+          "bits": "9:5",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "This is the offset address of the last received data,                                                                              as de- scribed in nonfifo_rx_thres_register. This value refreshes when I2C_RX_REC_FULL_INT or"
+        },
+        {
+          "name": "I2C_TRANS_COMPLETE_INT",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "RO",
+          "description": "interrupt is generated. (RO)"
+        },
+        {
+          "name": "I2C_RXFIFO_START_ADDR",
+          "bits": "4:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "This is the offset address of the last received data, as described in non- fifo_rx_thres_register. (RO) Espressif Systems                                                                   405                                                   ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 21 I2C Controller (I2C)                                                                                             GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:20"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_FIFO_CONF_REG",
+      "description": "FIFO configuration register",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53018",
+        "I2C1": "0x3FF67018"
+      },
+      "reset_value": "field-grouped reset values (not a single per-bit row): 0 0 0 0 0 0 0x15 0x15 0 0 0 0 0 0",
+      "fields": [
+        {
+          "name": "I2C_NONFIFO_TX_THRES",
+          "bits": "25:20",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When I2C sends more than nonfifo_tx_thres bytes of data, it will generate a tx_send_empty_int_raw interrupt and update the current offset address of the sent data. (R/W)"
+        },
+        {
+          "name": "I2C_NONFIFO_RX_THRES",
+          "bits": "19:14",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When I2C receives more than nonfifo_rx_thres bytes of data, it will gen- erate a rx_send_full_int_raw interrupt and update the current offset address of the received data. (R/W)"
+        },
+        {
+          "name": "I2C_FIFO_ADDR_CFG_EN",
+          "bits": "11",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When this bit is set to 1, the byte received after the I2C address byte represents the offset address in the I2C Slave RAM. (R/W)"
+        },
+        {
+          "name": "I2C_NONFIFO_EN",
+          "bits": "10",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Set this bit to enable APB nonfifo access. (R/W)"
+        },
+        {
+          "name": "I2C_TXFIFO_EMPTY_THRHD",
+          "bits": "9:5",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Configures the TX FIFO threshold in non-FIFO mode. When the TX FIFO count is greater than I2C_TXFIFO_EMPTY_THRHD [4:0], I2C_TXFIFO_EMPTY_INT_RAW bit is valid. (R/W)"
+        },
+        {
+          "name": "I2C_RXFIFO_FULL_THRHD",
+          "bits": "4:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "Configures the RX FIFO threshold in non-FIFO mode. When the RX FIFO count is greater than I2C_RXFIFO_FULL_THRHD [4:0], I2C_RXFIFO_FULL_INT_RAW bit is valid. (R/W) Espressif Systems                                                      406                                    ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 21 I2C Controller (I2C)                                                                                                                 GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:26",
+        "13:12"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_SDA_HOLD_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53030",
+        "I2C1": "0x3FF67030"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_SDA_HOLD_TIME",
+          "bits": "9:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to configure the time to hold the data after the negative edge of SCL, in APB clock cycles. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:10"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_SDA_SAMPLE_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53034",
+        "I2C1": "0x3FF67034"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_SDA_SAMPLE_TIME",
+          "bits": "9:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to configure for how long SDA is sampled, in APB clock cycles. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:10"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_SCL_LOW_PERIOD_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53000",
+        "I2C1": "0x3FF67000"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_SCL_LOW_PERIOD",
+          "bits": "13:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to configure for how long SCL remains low in master mode, in APB clock cycles. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:14"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_SCL_HIGH_PERIOD_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53038",
+        "I2C1": "0x3FF67038"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_SCL_HIGH_PERIOD",
+          "bits": "13:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to configure for how long SCL remains high in master mode, in APB clock cycles. (R/W) Espressif Systems                                                         411                                           ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 21 I2C Controller (I2C)                                                                                                                  GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:14"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_SCL_START_HOLD_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53040",
+        "I2C1": "0x3FF67040"
+      },
+      "reset_value": "0x00000008",
+      "fields": [
+        {
+          "name": "I2C_SCL_START_HOLD_TIME",
+          "bits": "9:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to configure the time between the negative edge of SDA and the negative edge of SCL for a START condition, in APB clock cycles. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:10"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_SCL_RSTART_SETUP_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53044",
+        "I2C1": "0x3FF67044"
+      },
+      "reset_value": "0x00000008",
+      "fields": [
+        {
+          "name": "I2C_SCL_RSTART_SETUP_TIME",
+          "bits": "9:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to configure the time between the positive edge of SCL and the negative edge of SDA for a RESTART condition, in APB clock cycles. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:10"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_SCL_STOP_HOLD_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53048",
+        "I2C1": "0x3FF67048"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_SCL_STOP_HOLD_TIME",
+          "bits": "13:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to configure the delay after the STOP condition, in APB clock cycles. (R/W) Espressif Systems                                                       412                                             ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 21 I2C Controller (I2C)                                                                                                                     GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:14"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_SCL_STOP_SETUP_REG",
+      "description": "",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF5304C",
+        "I2C1": "0x3FF6704C"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_SCL_STOP_SETUP_TIME",
+          "bits": "9:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This register is used to configure the time between the positive edge of SCL and the positive edge of SDA, in APB clock cycles. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:10"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_SCL_FILTER_CFG_REG",
+      "description": "SCL filter configuration register",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53050",
+        "I2C1": "0x3FF67050"
+      },
+      "reset_value": "0x00000008",
+      "fields": [
+        {
+          "name": "I2C_SCL_FILTER_EN",
+          "bits": "3",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This is the filter enable bit for SCL. (R/W)"
+        },
+        {
+          "name": "I2C_SCL_FILTER_THRES",
+          "bits": "2:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When a pulse on the SCL input has smaller width than this register value in APB clock cycles, the I2C controller will ignore that pulse. (R/W)"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:4"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_SDA_FILTER_CFG_REG",
+      "description": "SDA filter configuration register",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53054",
+        "I2C1": "0x3FF67054"
+      },
+      "reset_value": "0x00000008",
+      "fields": [
+        {
+          "name": "I2C_SDA_FILTER_EN",
+          "bits": "3",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This is the filter enable bit for SDA. (R/W)"
+        },
+        {
+          "name": "I2C_SDA_FILTER_THRES",
+          "bits": "2:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When a pulse on the SDA input has smaller width than this register value in APB clock cycles, the I2C controller will ignore that pulse. (R/W) Espressif Systems                                                       413                                            ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 21 I2C Controller (I2C)                                                                                                                GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:4"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_INT_RAW_REG",
+      "description": "Raw interrupt status",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53020",
+        "I2C1": "0x3FF67020"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_TX_SEND_EMPTY_INT_RAW",
+          "bits": "12",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The raw interrupt status bit for the I2C_TX_SEND_EMPTY_INT in- terrupt. (RO)"
+        },
+        {
+          "name": "I2C_RX_REC_FULL_INT_RAW",
+          "bits": "11",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The raw interrupt status bit for the I2C_RX_REC_FULL_INT interrupt. (RO)"
+        },
+        {
+          "name": "I2C_ACK_ERR_INT_RAW",
+          "bits": "10",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The raw interrupt status bit for the I2C_ACK_ERR_INT interrupt. (RO)"
+        },
+        {
+          "name": "I2C_TRANS_START_INT_RAW",
+          "bits": "9",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The raw interrupt status bit for the I2C_TRANS_START_INT interrupt. (RO)"
+        },
+        {
+          "name": "I2C_TIME_OUT_INT_RAW",
+          "bits": "8",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The raw interrupt status bit for the I2C_TIME_OUT_INT interrupt. (RO)"
+        },
+        {
+          "name": "I2C_TRANS_COMPLETE_INT_RAW",
+          "bits": "7",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The raw interrupt status bit for the I2C_TRANS_COMPLETE_INT interrupt. (RO)"
+        },
+        {
+          "name": "I2C_MASTER_TRAN_COMP_INT_RAW",
+          "bits": "6",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "The                                raw            interrupt           status           bit       for       the"
+        },
+        {
+          "name": "I2C_MASTER_TRAN_COMP_INT",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "RO",
+          "description": "interrupt. (RO)"
+        },
+        {
+          "name": "I2C_ARBITRATION_LOST_INT_RAW",
+          "bits": "5",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "The                           raw            interrupt               status        bit           for       the"
+        },
+        {
+          "name": "I2C_ARBITRATION_LOST_INT",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "RO",
+          "description": "interrupt. (RO)"
+        },
+        {
+          "name": "I2C_SLAVE_TRAN_COMP_INT_RAW",
+          "bits": "4",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "The                                raw         interrupt              status        bit           for       the"
+        },
+        {
+          "name": "I2C_SLAVE_TRAN_COMP_INT",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "RO",
+          "description": "interrupt. (RO)"
+        },
+        {
+          "name": "I2C_END_DETECT_INT_RAW",
+          "bits": "3",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The raw interrupt status bit for the I2C_END_DETECT_INT interrupt. (RO)"
+        },
+        {
+          "name": "I2C_RXFIFO_OVF_INT_RAW",
+          "bits": "2",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The raw interrupt status bit for the I2C_RXFIFO_OVF_INT interrupt. (RO)"
+        },
+        {
+          "name": "I2C_TXFIFO_EMPTY_INT_RAW",
+          "bits": "1",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The raw interrupt status bit for the I2C_TXFIFO_EMPTY_INT interrupt. (RO)"
+        },
+        {
+          "name": "I2C_RXFIFO_FULL_INT_RAW",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The raw interrupt status bit for the I2C_RXFIFO_FULL_INT interrupt. (RO) Espressif Systems                                                       407                                             ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 21 I2C Controller (I2C)                                                                                                          GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:13"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_INT_CLR_REG",
+      "description": "Interrupt clear bits",
+      "width": 32,
+      "access": "WO",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53024",
+        "I2C1": "0x3FF67024"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_TX_SEND_EMPTY_INT_CLR",
+          "bits": "12",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the I2C_TX_SEND_EMPTY_INT interrupt. (WO)"
+        },
+        {
+          "name": "I2C_RX_REC_FULL_INT_CLR",
+          "bits": "11",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the I2C_RX_REC_FULL_INT interrupt. (WO)"
+        },
+        {
+          "name": "I2C_ACK_ERR_INT_CLR",
+          "bits": "10",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the I2C_ACK_ERR_INT interrupt. (WO)"
+        },
+        {
+          "name": "I2C_TRANS_START_INT_CLR",
+          "bits": "9",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the I2C_TRANS_START_INT interrupt. (WO)"
+        },
+        {
+          "name": "I2C_TIME_OUT_INT_CLR",
+          "bits": "8",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the I2C_TIME_OUT_INT interrupt. (WO)"
+        },
+        {
+          "name": "I2C_TRANS_COMPLETE_INT_CLR",
+          "bits": "7",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the I2C_TRANS_COMPLETE_INT interrupt. (WO)"
+        },
+        {
+          "name": "I2C_MASTER_TRAN_COMP_INT_CLR",
+          "bits": "6",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the I2C_MASTER_TRAN_COMP_INT inter- rupt. (WO)"
+        },
+        {
+          "name": "I2C_ARBITRATION_LOST_INT_CLR",
+          "bits": "5",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the I2C_ARBITRATION_LOST_INT interrupt. (WO)"
+        },
+        {
+          "name": "I2C_SLAVE_TRAN_COMP_INT_CLR",
+          "bits": "4",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the I2C_SLAVE_TRAN_COMP_INT interrupt. (WO)"
+        },
+        {
+          "name": "I2C_END_DETECT_INT_CLR",
+          "bits": "3",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the I2C_END_DETECT_INT interrupt. (WO)"
+        },
+        {
+          "name": "I2C_RXFIFO_OVF_INT_CLR",
+          "bits": "2",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the I2C_RXFIFO_OVF_INT interrupt. (WO)"
+        },
+        {
+          "name": "I2C_TXFIFO_EMPTY_INT_CLR",
+          "bits": "1",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the I2C_TXFIFO_EMPTY_INT interrupt. (WO)"
+        },
+        {
+          "name": "I2C_RXFIFO_FULL_INT_CLR",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "WO",
+          "description": "Set this bit to clear the I2C_RXFIFO_FULL_INT interrupt. (WO) Espressif Systems                                                      408                                           ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 21 I2C Controller (I2C)                                                                                                              GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:13"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_INT_ENA_REG",
+      "description": "Interrupt enable bits",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53028",
+        "I2C1": "0x3FF67028"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_TX_SEND_EMPTY_INT_ENA",
+          "bits": "12",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The interrupt enable bit for the I2C_TX_SEND_EMPTY_INT inter- rupt. (R/W)"
+        },
+        {
+          "name": "I2C_RX_REC_FULL_INT_ENA",
+          "bits": "11",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The interrupt enable bit for the I2C_RX_REC_FULL_INT interrupt. (R/W)"
+        },
+        {
+          "name": "I2C_ACK_ERR_INT_ENA",
+          "bits": "10",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The interrupt enable bit for the I2C_ACK_ERR_INT interrupt. (R/W)"
+        },
+        {
+          "name": "I2C_TRANS_START_INT_ENA",
+          "bits": "9",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The interrupt enable bit for the I2C_TRANS_START_INT interrupt. (R/W)"
+        },
+        {
+          "name": "I2C_TIME_OUT_INT_ENA",
+          "bits": "8",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The interrupt enable bit for the I2C_TIME_OUT_INT interrupt. (R/W)"
+        },
+        {
+          "name": "I2C_TRANS_COMPLETE_INT_ENA",
+          "bits": "7",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The interrupt enable bit for the I2C_TRANS_COMPLETE_INT in- terrupt. (R/W)"
+        },
+        {
+          "name": "I2C_MASTER_TRAN_COMP_INT_ENA",
+          "bits": "6",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "The                                interrupt               enable               bit           for       the"
+        },
+        {
+          "name": "I2C_MASTER_TRAN_COMP_INT",
+          "bits": "31:13",
+          "bit_confidence": "medium (positional match: unmatched field/segment counts were equal and in the same order)",
+          "access": "R/W",
+          "description": "interrupt. (R/W)"
+        },
+        {
+          "name": "I2C_ARBITRATION_LOST_INT_ENA",
+          "bits": "5",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The interrupt enable bit for the I2C_ARBITRATION_LOST_INT in- terrupt. (R/W)"
+        },
+        {
+          "name": "I2C_SLAVE_TRAN_COMP_INT_ENA",
+          "bits": "4",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The interrupt enable bit for the I2C_SLAVE_TRAN_COMP_INT interrupt. (R/W)"
+        },
+        {
+          "name": "I2C_END_DETECT_INT_ENA",
+          "bits": "3",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The interrupt enable bit for the I2C_END_DETECT_INT interrupt. (R/W)"
+        },
+        {
+          "name": "I2C_RXFIFO_OVF_INT_ENA",
+          "bits": "2",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The interrupt enable bit for the I2C_RXFIFO_OVF_INT interrupt. (R/W)"
+        },
+        {
+          "name": "I2C_TXFIFO_EMPTY_INT_ENA",
+          "bits": "1",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The interrupt enable bit for the I2C_TXFIFO_EMPTY_INT interrupt. (R/W)"
+        },
+        {
+          "name": "I2C_RXFIFO_FULL_INT_ENA",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "The interrupt enable bit for the I2C_RXFIFO_FULL_INT interrupt. (R/W) Espressif Systems                                                      409                                             ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 21 I2C Controller (I2C)                                                                                                                   GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:13"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_INT_STATUS_REG",
+      "description": "Interrupt status bits",
+      "width": 32,
+      "access": "RO",
+      "absolute_addresses": {
+        "I2C0": "0x3FF5302C",
+        "I2C1": "0x3FF6702C"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_TX_SEND_EMPTY_INT_ST",
+          "bits": "12",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The masked interrupt status bit for the I2C_TX_SEND_EMPTY_INT interrupt. (RO)"
+        },
+        {
+          "name": "I2C_RX_REC_FULL_INT_ST",
+          "bits": "11",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The masked interrupt status bit for the I2C_RX_REC_FULL_INT inter- rupt. (RO)"
+        },
+        {
+          "name": "I2C_ACK_ERR_INT_ST",
+          "bits": "10",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The masked interrupt status bit for the I2C_ACK_ERR_INT interrupt. (RO)"
+        },
+        {
+          "name": "I2C_TRANS_START_INT_ST",
+          "bits": "9",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The masked interrupt status bit for the I2C_TRANS_START_INT interrupt. (RO)"
+        },
+        {
+          "name": "I2C_TIME_OUT_INT_ST",
+          "bits": "8",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The masked interrupt status bit for the I2C_TIME_OUT_INT interrupt. (RO)"
+        },
+        {
+          "name": "I2C_TRANS_COMPLETE_INT_ST",
+          "bits": "7",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "The                              masked              interrupt           status            bit        for       the"
+        },
+        {
+          "name": "I2C_TRANS_COMPLETE_INT",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "RO",
+          "description": "interrupt. (RO)"
+        },
+        {
+          "name": "I2C_MASTER_TRAN_COMP_INT_ST",
+          "bits": "6",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "The                              masked              interrupt             status         bit       for       the"
+        },
+        {
+          "name": "I2C_MASTER_TRAN_COMP_INT",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "RO",
+          "description": "interrupt. (RO)"
+        },
+        {
+          "name": "I2C_ARBITRATION_LOST_INT_ST",
+          "bits": "5",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "The                            masked              interrupt           status            bit        for       the"
+        },
+        {
+          "name": "I2C_ARBITRATION_LOST_INT",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "RO",
+          "description": "interrupt. (RO)"
+        },
+        {
+          "name": "I2C_SLAVE_TRAN_COMP_INT_ST",
+          "bits": "4",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": null,
+          "description": "The                             masked              interrupt           status            bit        for       the"
+        },
+        {
+          "name": "I2C_SLAVE_TRAN_COMP_INT",
+          "bits": "COULD NOT MATCH to a specific diagram segment (label text mismatch or ambiguous layout) - verify manually",
+          "bit_confidence": "low",
+          "access": "RO",
+          "description": "interrupt. (RO)"
+        },
+        {
+          "name": "I2C_END_DETECT_INT_ST",
+          "bits": "3",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The masked interrupt status bit for the I2C_END_DETECT_INT interrupt. (RO)"
+        },
+        {
+          "name": "I2C_RXFIFO_OVF_INT_ST",
+          "bits": "2",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The masked interrupt status bit for the I2C_RXFIFO_OVF_INT interrupt. (RO)"
+        },
+        {
+          "name": "I2C_TXFIFO_EMPTY_INT_ST",
+          "bits": "1",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The masked interrupt status bit for the I2C_TXFIFO_EMPTY_INT inter- rupt. (RO)"
+        },
+        {
+          "name": "I2C_RXFIFO_FULL_INT_ST",
+          "bits": "0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "RO",
+          "description": "The masked interrupt status bit for the I2C_RXFIFO_FULL_INT interrupt. (RO) Espressif Systems                                                       410                                              ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 21 I2C Controller (I2C)                                                                                                                     GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "31:13"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_COMD0_REG",
+      "description": "I2C command register 0",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53058",
+        "I2C1": "0x3FF67058"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_COMMANDn_DONE",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When command n is done in I2C Master mode, this bit changes to high level. (R/W)"
+        },
+        {
+          "name": "I2C_COMMANDn",
+          "bits": "13:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This is the content of command n. It consists of three parts: (R/W) op_code is the command, 0: RSTART; 1: WRITE; 2: READ; 3: STOP; 4: END."
+        },
+        {
+          "name": "Byte_num",
+          "bits": "30:14",
+          "bit_confidence": "medium (positional match: unmatched field/segment counts were equal and in the same order)",
+          "access": null,
+          "description": "represents the number of bytes that need to be sent or received. ack_check_en, ack_exp and ack are used to control the ACK bit. See I2C cmd structure for more information. Espressif Systems                                                            414                                          ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 22 I2S Controller (I2S)                                                                             GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "30:14"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_COMD1_REG",
+      "description": "I2C command register 1",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF5305C",
+        "I2C1": "0x3FF6705C"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_COMMANDn_DONE",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When command n is done in I2C Master mode, this bit changes to high level. (R/W)"
+        },
+        {
+          "name": "I2C_COMMANDn",
+          "bits": "13:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This is the content of command n. It consists of three parts: (R/W) op_code is the command, 0: RSTART; 1: WRITE; 2: READ; 3: STOP; 4: END."
+        },
+        {
+          "name": "Byte_num",
+          "bits": "30:14",
+          "bit_confidence": "medium (positional match: unmatched field/segment counts were equal and in the same order)",
+          "access": null,
+          "description": "represents the number of bytes that need to be sent or received. ack_check_en, ack_exp and ack are used to control the ACK bit. See I2C cmd structure for more information. Espressif Systems                                                            414                                          ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 22 I2S Controller (I2S)                                                                             GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "30:14"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_COMD2_REG",
+      "description": "I2C command register 2",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53060",
+        "I2C1": "0x3FF67060"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_COMMANDn_DONE",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When command n is done in I2C Master mode, this bit changes to high level. (R/W)"
+        },
+        {
+          "name": "I2C_COMMANDn",
+          "bits": "13:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This is the content of command n. It consists of three parts: (R/W) op_code is the command, 0: RSTART; 1: WRITE; 2: READ; 3: STOP; 4: END."
+        },
+        {
+          "name": "Byte_num",
+          "bits": "30:14",
+          "bit_confidence": "medium (positional match: unmatched field/segment counts were equal and in the same order)",
+          "access": null,
+          "description": "represents the number of bytes that need to be sent or received. ack_check_en, ack_exp and ack are used to control the ACK bit. See I2C cmd structure for more information. Espressif Systems                                                            414                                          ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 22 I2S Controller (I2S)                                                                             GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "30:14"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_COMD3_REG",
+      "description": "I2C command register 3",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53064",
+        "I2C1": "0x3FF67064"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_COMMANDn_DONE",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When command n is done in I2C Master mode, this bit changes to high level. (R/W)"
+        },
+        {
+          "name": "I2C_COMMANDn",
+          "bits": "13:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This is the content of command n. It consists of three parts: (R/W) op_code is the command, 0: RSTART; 1: WRITE; 2: READ; 3: STOP; 4: END."
+        },
+        {
+          "name": "Byte_num",
+          "bits": "30:14",
+          "bit_confidence": "medium (positional match: unmatched field/segment counts were equal and in the same order)",
+          "access": null,
+          "description": "represents the number of bytes that need to be sent or received. ack_check_en, ack_exp and ack are used to control the ACK bit. See I2C cmd structure for more information. Espressif Systems                                                            414                                          ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 22 I2S Controller (I2S)                                                                             GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "30:14"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_COMD4_REG",
+      "description": "I2C command register 4",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53068",
+        "I2C1": "0x3FF67068"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_COMMANDn_DONE",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When command n is done in I2C Master mode, this bit changes to high level. (R/W)"
+        },
+        {
+          "name": "I2C_COMMANDn",
+          "bits": "13:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This is the content of command n. It consists of three parts: (R/W) op_code is the command, 0: RSTART; 1: WRITE; 2: READ; 3: STOP; 4: END."
+        },
+        {
+          "name": "Byte_num",
+          "bits": "30:14",
+          "bit_confidence": "medium (positional match: unmatched field/segment counts were equal and in the same order)",
+          "access": null,
+          "description": "represents the number of bytes that need to be sent or received. ack_check_en, ack_exp and ack are used to control the ACK bit. See I2C cmd structure for more information. Espressif Systems                                                            414                                          ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 22 I2S Controller (I2S)                                                                             GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "30:14"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_COMD5_REG",
+      "description": "I2C command register 5",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF5306C",
+        "I2C1": "0x3FF6706C"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_COMMANDn_DONE",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When command n is done in I2C Master mode, this bit changes to high level. (R/W)"
+        },
+        {
+          "name": "I2C_COMMANDn",
+          "bits": "13:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This is the content of command n. It consists of three parts: (R/W) op_code is the command, 0: RSTART; 1: WRITE; 2: READ; 3: STOP; 4: END."
+        },
+        {
+          "name": "Byte_num",
+          "bits": "30:14",
+          "bit_confidence": "medium (positional match: unmatched field/segment counts were equal and in the same order)",
+          "access": null,
+          "description": "represents the number of bytes that need to be sent or received. ack_check_en, ack_exp and ack are used to control the ACK bit. See I2C cmd structure for more information. Espressif Systems                                                            414                                          ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 22 I2S Controller (I2S)                                                                             GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "30:14"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_COMD6_REG",
+      "description": "I2C command register 6",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53070",
+        "I2C1": "0x3FF67070"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_COMMANDn_DONE",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When command n is done in I2C Master mode, this bit changes to high level. (R/W)"
+        },
+        {
+          "name": "I2C_COMMANDn",
+          "bits": "13:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This is the content of command n. It consists of three parts: (R/W) op_code is the command, 0: RSTART; 1: WRITE; 2: READ; 3: STOP; 4: END."
+        },
+        {
+          "name": "Byte_num",
+          "bits": "30:14",
+          "bit_confidence": "medium (positional match: unmatched field/segment counts were equal and in the same order)",
+          "access": null,
+          "description": "represents the number of bytes that need to be sent or received. ack_check_en, ack_exp and ack are used to control the ACK bit. See I2C cmd structure for more information. Espressif Systems                                                            414                                          ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 22 I2S Controller (I2S)                                                                             GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "30:14"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_COMD7_REG",
+      "description": "I2C command register 7",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53074",
+        "I2C1": "0x3FF67074"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_COMMANDn_DONE",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When command n is done in I2C Master mode, this bit changes to high level. (R/W)"
+        },
+        {
+          "name": "I2C_COMMANDn",
+          "bits": "13:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This is the content of command n. It consists of three parts: (R/W) op_code is the command, 0: RSTART; 1: WRITE; 2: READ; 3: STOP; 4: END."
+        },
+        {
+          "name": "Byte_num",
+          "bits": "30:14",
+          "bit_confidence": "medium (positional match: unmatched field/segment counts were equal and in the same order)",
+          "access": null,
+          "description": "represents the number of bytes that need to be sent or received. ack_check_en, ack_exp and ack are used to control the ACK bit. See I2C cmd structure for more information. Espressif Systems                                                            414                                          ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 22 I2S Controller (I2S)                                                                             GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "30:14"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_COMD8_REG",
+      "description": "I2C command register 8",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53078",
+        "I2C1": "0x3FF67078"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_COMMANDn_DONE",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When command n is done in I2C Master mode, this bit changes to high level. (R/W)"
+        },
+        {
+          "name": "I2C_COMMANDn",
+          "bits": "13:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This is the content of command n. It consists of three parts: (R/W) op_code is the command, 0: RSTART; 1: WRITE; 2: READ; 3: STOP; 4: END."
+        },
+        {
+          "name": "Byte_num",
+          "bits": "30:14",
+          "bit_confidence": "medium (positional match: unmatched field/segment counts were equal and in the same order)",
+          "access": null,
+          "description": "represents the number of bytes that need to be sent or received. ack_check_en, ack_exp and ack are used to control the ACK bit. See I2C cmd structure for more information. Espressif Systems                                                            414                                          ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 22 I2S Controller (I2S)                                                                             GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "30:14"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_COMD9_REG",
+      "description": "I2C command register 9",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF5307C",
+        "I2C1": "0x3FF6707C"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_COMMANDn_DONE",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When command n is done in I2C Master mode, this bit changes to high level. (R/W)"
+        },
+        {
+          "name": "I2C_COMMANDn",
+          "bits": "13:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This is the content of command n. It consists of three parts: (R/W) op_code is the command, 0: RSTART; 1: WRITE; 2: READ; 3: STOP; 4: END."
+        },
+        {
+          "name": "Byte_num",
+          "bits": "30:14",
+          "bit_confidence": "medium (positional match: unmatched field/segment counts were equal and in the same order)",
+          "access": null,
+          "description": "represents the number of bytes that need to be sent or received. ack_check_en, ack_exp and ack are used to control the ACK bit. See I2C cmd structure for more information. Espressif Systems                                                            414                                          ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 22 I2S Controller (I2S)                                                                             GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "30:14"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_COMD10_REG",
+      "description": "I2C command register 10",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53080",
+        "I2C1": "0x3FF67080"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_COMMANDn_DONE",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When command n is done in I2C Master mode, this bit changes to high level. (R/W)"
+        },
+        {
+          "name": "I2C_COMMANDn",
+          "bits": "13:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This is the content of command n. It consists of three parts: (R/W) op_code is the command, 0: RSTART; 1: WRITE; 2: READ; 3: STOP; 4: END."
+        },
+        {
+          "name": "Byte_num",
+          "bits": "30:14",
+          "bit_confidence": "medium (positional match: unmatched field/segment counts were equal and in the same order)",
+          "access": null,
+          "description": "represents the number of bytes that need to be sent or received. ack_check_en, ack_exp and ack are used to control the ACK bit. See I2C cmd structure for more information. Espressif Systems                                                            414                                          ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 22 I2S Controller (I2S)                                                                             GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "30:14"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_COMD11_REG",
+      "description": "I2C command register 11",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53084",
+        "I2C1": "0x3FF67084"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_COMMANDn_DONE",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When command n is done in I2C Master mode, this bit changes to high level. (R/W)"
+        },
+        {
+          "name": "I2C_COMMANDn",
+          "bits": "13:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This is the content of command n. It consists of three parts: (R/W) op_code is the command, 0: RSTART; 1: WRITE; 2: READ; 3: STOP; 4: END."
+        },
+        {
+          "name": "Byte_num",
+          "bits": "30:14",
+          "bit_confidence": "medium (positional match: unmatched field/segment counts were equal and in the same order)",
+          "access": null,
+          "description": "represents the number of bytes that need to be sent or received. ack_check_en, ack_exp and ack are used to control the ACK bit. See I2C cmd structure for more information. Espressif Systems                                                            414                                          ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 22 I2S Controller (I2S)                                                                             GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "30:14"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_COMD12_REG",
+      "description": "I2C command register 12",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53088",
+        "I2C1": "0x3FF67088"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_COMMANDn_DONE",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When command n is done in I2C Master mode, this bit changes to high level. (R/W)"
+        },
+        {
+          "name": "I2C_COMMANDn",
+          "bits": "13:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This is the content of command n. It consists of three parts: (R/W) op_code is the command, 0: RSTART; 1: WRITE; 2: READ; 3: STOP; 4: END."
+        },
+        {
+          "name": "Byte_num",
+          "bits": "30:14",
+          "bit_confidence": "medium (positional match: unmatched field/segment counts were equal and in the same order)",
+          "access": null,
+          "description": "represents the number of bytes that need to be sent or received. ack_check_en, ack_exp and ack are used to control the ACK bit. See I2C cmd structure for more information. Espressif Systems                                                            414                                          ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 22 I2S Controller (I2S)                                                                             GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "30:14"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_COMD13_REG",
+      "description": "I2C command register 13",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF5308C",
+        "I2C1": "0x3FF6708C"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_COMMANDn_DONE",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When command n is done in I2C Master mode, this bit changes to high level. (R/W)"
+        },
+        {
+          "name": "I2C_COMMANDn",
+          "bits": "13:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This is the content of command n. It consists of three parts: (R/W) op_code is the command, 0: RSTART; 1: WRITE; 2: READ; 3: STOP; 4: END."
+        },
+        {
+          "name": "Byte_num",
+          "bits": "30:14",
+          "bit_confidence": "medium (positional match: unmatched field/segment counts were equal and in the same order)",
+          "access": null,
+          "description": "represents the number of bytes that need to be sent or received. ack_check_en, ack_exp and ack are used to control the ACK bit. See I2C cmd structure for more information. Espressif Systems                                                            414                                          ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 22 I2S Controller (I2S)                                                                             GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "30:14"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_COMD14_REG",
+      "description": "I2C command register 14",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53090",
+        "I2C1": "0x3FF67090"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_COMMANDn_DONE",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When command n is done in I2C Master mode, this bit changes to high level. (R/W)"
+        },
+        {
+          "name": "I2C_COMMANDn",
+          "bits": "13:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This is the content of command n. It consists of three parts: (R/W) op_code is the command, 0: RSTART; 1: WRITE; 2: READ; 3: STOP; 4: END."
+        },
+        {
+          "name": "Byte_num",
+          "bits": "30:14",
+          "bit_confidence": "medium (positional match: unmatched field/segment counts were equal and in the same order)",
+          "access": null,
+          "description": "represents the number of bytes that need to be sent or received. ack_check_en, ack_exp and ack are used to control the ACK bit. See I2C cmd structure for more information. Espressif Systems                                                            414                                          ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 22 I2S Controller (I2S)                                                                             GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "30:14"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    },
+    {
+      "name": "I2C_COMD15_REG",
+      "description": "I2C command register 15",
+      "width": 32,
+      "access": "R/W",
+      "absolute_addresses": {
+        "I2C0": "0x3FF53094",
+        "I2C1": "0x3FF67094"
+      },
+      "reset_value": "0x00000000",
+      "fields": [
+        {
+          "name": "I2C_COMMANDn_DONE",
+          "bits": "31",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "When command n is done in I2C Master mode, this bit changes to high level. (R/W)"
+        },
+        {
+          "name": "I2C_COMMANDn",
+          "bits": "13:0",
+          "bit_confidence": "high (matched via diagram divider lines + field label)",
+          "access": "R/W",
+          "description": "This is the content of command n. It consists of three parts: (R/W) op_code is the command, 0: RSTART; 1: WRITE; 2: READ; 3: STOP; 4: END."
+        },
+        {
+          "name": "Byte_num",
+          "bits": "30:14",
+          "bit_confidence": "medium (positional match: unmatched field/segment counts were equal and in the same order)",
+          "access": null,
+          "description": "represents the number of bytes that need to be sent or received. ack_check_en, ack_exp and ack are used to control the ACK bit. See I2C cmd structure for more information. Espressif Systems                                                            414                                          ESP32 TRM (Version 5.7) Submit Documentation Feedback Chapter 22 I2S Controller (I2S)                                                                             GoBack"
+        }
+      ],
+      "dependencies": [],
+      "reserved_bits": [
+        "30:14"
+      ],
+      "reserved_bits_note": "Bits not covered by any named field above. Per standard practice for this manual (and explicit guidance in registers like GPIO_ENABLE_REG), reserved bits should be written as 0 and ignored on read unless otherwise noted."
+    }
+  ],
+  "global_dependencies": [
+    "Clock gate: DPORT_I2C_EXT0_CLK_EN (I2C0), DPORT_I2C_EXT1_CLK_EN (I2C1) bits in DPORT_PERIP_CLK_EN_REG (0x3FF000C0).",
+    "Corresponding reset bits in DPORT_PERIP_RST_EN_REG (0x3FF000C4) must be de-asserted for the I2C controller to operate.",
+    "I2C_SCL_LOW_PERIOD_REG / I2C_SCL_HIGH_PERIOD_REG (bus timing) should be configured based on APB clock before enabling transactions via the command registers (I2C_COMD0-15_REG).",
+    "I2C pins (SDA/SCL) must be routed through the GPIO Matrix and configured as open-drain in GPIO_PINn_REG.GPIO_PINn_PAD_DRIVER for proper I2C bus behavior.",
+    "NOTE: Several addresses in the manual's own I2C register summary table are printed as short relative offsets (e.g. I2C_CTR_REG = 0x0004, I2C_SR_REG = 0x0008) rather than full absolute addresses like the rest of the table (e.g. 0x3FF53xxx) - this is preserved as printed; treat these as offsets from the I2C0/I2C1 base address (0x3FF53000 / 0x3FF67000) rather than literal absolute addresses, and cross-check against the manual if precision matters.",
+    "BIT-POSITION VERIFICATION: I2C_RXFIFO_ST_REG, I2C_INT_RAW_REG, and I2C_INT_STATUS_REG have a few fields flagged 'low' confidence due to overlapping/duplicate field-name text in the diagram - verify these specific fields against the cited PDF page."
+  ]
+}

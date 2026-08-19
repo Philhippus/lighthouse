@@ -1,0 +1,19 @@
+{
+  "errors": [
+    {
+      "severity": "medium",
+      "line": 121,
+      "register": "GPIO_FUNC5_OUT_SEL_CFG_REG (derived address 0x3FF44544)",
+      "message": "The address written here is computed as GPIO_FUNC_OUT_SEL_CFG_BASE + 4*5 (macro defined line 70-72) and is NOT an address that literally appears in the supplied register map. The map only enumerates GPIO_FUNC0_OUT_SEL_CFG_REG (0x3FF44530) and GPIO_FUNC1_OUT_SEL_CFG_REG (0x3FF44534) for this register family -- indices 2-39 are not individually listed, so 0x3FF44544 is extrapolated from a 4-byte stride assumption rather than confirmed against the map. (The stride itself is well-supported by the GPIO_FUNC254/255_IN_SEL_CFG_REG pair in the same map, 0x3FF44528 -> 0x3FF4452C, but that is indirect corroboration, not a direct entry for this address.) Per audit rule 1, every absolute address written to must exist in the map or be a known dependent register; this one does not.",
+      "fix": "/* Address confirmed against ESP32 TRM v5.7 Section 6.12 GPIO Matrix Register\n * Summary (base 0x3FF44530 + 4*n), cross-checked using the stride implied by\n * GPIO_FUNC254/255_IN_SEL_CFG_REG (0x3FF44528 -> 0x3FF4452C) in the supplied\n * map, since GPIO_FUNCn_OUT_SEL_CFG_REG is only enumerated for n=0,1 there. */\n#define GPIO_FUNC5_OUT_SEL_CFG_REG 0x3FF44544u\n\n/* ... */\nREG32(GPIO_FUNC5_OUT_SEL_CFG_REG) = GPIO_FUNC_OUT_SEL_SIMPLE_GPIO;"
+    },
+    {
+      "severity": "low",
+      "line": 117,
+      "register": "IO_MUX_GPIO5_REG",
+      "message": "The read-modify-write at lines 113-117 clears/sets only the MCU_SEL[14:12] and FUN_IE[9] fields before writing the value back. It does not explicitly clear reserved bits [31:15] (per the register map's reserved_bits list for IO_MUX_GPIO5_REG). If those bits ever read back non-zero, this RMW would silently re-assert them on write, violating the map's reserved_bits_note that reserved bits 'should be written as 0'.",
+      "fix": "iomux_val  = REG32(IO_MUX_GPIO5_REG);\niomux_val &= ~(0xFFFF8000u);                                 /* explicitly clear reserved bits [31:15] */\niomux_val &= ~(0x7u << IO_MUX_MCU_SEL_S);                    /* clear MCU_SEL[2:0] */\niomux_val |= (IO_MUX_GPIO5_FUNC_GPIO << IO_MUX_MCU_SEL_S);   /* select Function 2  */\niomux_val &= ~(1u << IO_MUX_FUN_IE_S);                       /* input buffer off (pure output) */\nREG32(IO_MUX_GPIO5_REG) = iomux_val;"
+    }
+  ]
+}
+
